@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Send, Lock, Sparkles } from "lucide-react";
+import { Send, Lock, Sparkles, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const activites = [
   "Restaurant / Café",
@@ -53,15 +55,30 @@ const DemoForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "Lead", {
-        content_name: formData.service,
-        content_category: formData.activite,
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-demo-request", {
+        body: formData,
       });
+      if (error) throw error;
+      toast.success("Merci ! Nous vous contacterons sous 24h avec votre démo personnalisée.");
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq("track", "Lead", {
+          content_name: formData.service,
+          content_category: formData.activite,
+        });
+      }
+      setFormData({ nom: "", telephone: "", email: "", entreprise: "", activite: "", budget: "", timeline: "", service: "" });
+    } catch (err: any) {
+      console.error("Error:", err);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
     }
-    alert("Merci ! Nous vous contacterons sous 24h avec votre démo personnalisée.");
   };
 
   const selectClass =
@@ -197,9 +214,10 @@ const DemoForm = () => {
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 text-lg font-semibold text-primary-foreground px-8 py-4 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:shadow-[0_12px_32px_-4px_hsl(210_85%_45%/0.45)] hover:-translate-y-0.5"
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-2 text-lg font-semibold text-primary-foreground px-8 py-4 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:shadow-[0_12px_32px_-4px_hsl(210_85%_45%/0.45)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Voir ma démo personnalisée <Send className="w-5 h-5" />
+              {loading ? <><Loader2 className="w-5 h-5 animate-spin" /> Envoi en cours...</> : <>Voir ma démo personnalisée <Send className="w-5 h-5" /></>}
             </button>
 
             <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
