@@ -1,51 +1,100 @@
-import { ClipboardList, Zap, Monitor, ShieldCheck, Truck } from "lucide-react";
+import { ClipboardList, Zap, Monitor, ShieldCheck, Truck, ArrowRight } from "lucide-react";
 
 const steps = [
-  { icon: ClipboardList, title: "Remplissez", subtitle: "le formulaire", color: "from-blue-500 to-cyan-400" },
-  { icon: Zap, title: "Nous contactons", subtitle: "sous 24h", color: "from-amber-400 to-orange-500" },
-  { icon: Monitor, title: "Démo créée", subtitle: "Personnalisée", color: "from-emerald-400 to-teal-500" },
-  { icon: ShieldCheck, title: "Validez", subtitle: "et payez 30%", color: "from-violet-500 to-purple-600" },
-  { icon: Truck, title: "Livraison", subtitle: "Finalisation", color: "from-rose-400 to-pink-500" },
+  {
+    icon: ClipboardList,
+    title: "Remplissez",
+    subtitle: "le formulaire en 2 min",
+    emoji: "📋",
+  },
+  {
+    icon: Zap,
+    title: "On vous contacte",
+    subtitle: "sous 24h max",
+    emoji: "⚡",
+  },
+  {
+    icon: Monitor,
+    title: "Démo créée",
+    subtitle: "100% personnalisée",
+    emoji: "🎨",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Validation",
+    subtitle: "et acompte 30%",
+    emoji: "✅",
+  },
+  {
+    icon: Truck,
+    title: "Livraison",
+    subtitle: "site prêt à l'emploi",
+    emoji: "🚀",
+  },
 ];
 
 const StepsSection = () => (
-  <section className="py-24 px-4 relative overflow-hidden">
-    {/* Decorative background */}
-    <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
-    
-    <div className="relative z-10">
+  <section className="py-24 px-4">
+    <div className="max-w-5xl mx-auto">
       <div className="text-center mb-16">
-        <span className="text-primary font-medium text-sm tracking-widest uppercase">Processus simple</span>
-        <h2 className="font-heading text-3xl md:text-4xl font-bold mt-3">
-          Comment ça marche
+        <h2 className="font-heading text-3xl md:text-4xl font-bold">
+          Comment ça marche ?
         </h2>
-        <p className="text-muted-foreground mt-3 max-w-md mx-auto">
-          Un processus clair et transparent en 5 étapes
+        <p className="text-muted-foreground mt-3 max-w-lg mx-auto text-lg">
+          De l'idée à la mise en ligne, un processus simple et rapide
         </p>
       </div>
 
-      <div className="max-w-5xl mx-auto relative">
-        {/* Connecting line */}
-        <div className="hidden md:block absolute top-16 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20" />
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 md:gap-6">
-          {steps.map((step, i) => (
-            <div key={step.title} className="flex flex-col items-center text-center group">
-              {/* Number badge */}
-              <div className="relative mb-5">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}>
-                  <step.icon className="w-7 h-7 text-white" />
+      {/* Desktop: horizontal timeline */}
+      <div className="hidden md:flex items-start justify-between gap-2">
+        {steps.map((step, i) => (
+          <div key={step.title} className="flex items-start flex-1">
+            <div className="flex flex-col items-center text-center flex-1">
+              {/* Big emoji + number */}
+              <div className="relative">
+                <div className="w-20 h-20 rounded-3xl bg-card border-2 border-border flex items-center justify-center text-4xl shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+                  {step.emoji}
                 </div>
-                <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-card border-2 border-border flex items-center justify-center text-xs font-bold text-foreground shadow-sm">
+                <div className="absolute -top-1.5 -left-1.5 w-7 h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">
                   {i + 1}
                 </div>
               </div>
-
-              <div className="font-heading font-semibold text-sm">{step.title}</div>
-              <div className="text-muted-foreground text-xs mt-0.5">{step.subtitle}</div>
+              <h3 className="font-heading font-bold text-base mt-4">{step.title}</h3>
+              <p className="text-muted-foreground text-sm mt-1 max-w-[140px]">{step.subtitle}</p>
             </div>
-          ))}
-        </div>
+
+            {/* Arrow connector (except last) */}
+            {i < steps.length - 1 && (
+              <div className="flex items-center pt-9 px-1 text-muted-foreground/30">
+                <div className="w-8 h-0.5 bg-border" />
+                <ArrowRight className="w-4 h-4 -ml-1" />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Mobile: vertical cards */}
+      <div className="md:hidden space-y-4">
+        {steps.map((step, i) => (
+          <div
+            key={step.title}
+            className="flex items-center gap-4 bg-card rounded-2xl border border-border p-5 shadow-[var(--shadow-card)]"
+          >
+            <div className="relative shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center text-2xl">
+                {step.emoji}
+              </div>
+              <div className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold">
+                {i + 1}
+              </div>
+            </div>
+            <div>
+              <h3 className="font-heading font-bold text-sm">{step.title}</h3>
+              <p className="text-muted-foreground text-xs mt-0.5">{step.subtitle}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
