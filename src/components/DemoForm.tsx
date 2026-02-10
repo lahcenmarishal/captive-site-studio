@@ -169,21 +169,21 @@ const DemoForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1.5">Quand souhaitez-vous lancer ? *</label>
-              <select name="timeline" required className={selectClass} value={formData.timeline} onChange={handleChange}>
-                <option value="">-- Sélectionnez une option --</option>
-                {timelines.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
               <label className="block text-sm font-medium mb-1.5">Type de service *</label>
               <select name="service" required className={selectClass} value={formData.service} onChange={handleChange}>
                 <option value="">-- Sélectionnez un service --</option>
                 {services.map((s) => (
                   <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Quand souhaitez-vous lancer ? *</label>
+              <select name="timeline" required className={selectClass} value={formData.timeline} onChange={handleChange}>
+                <option value="">-- Sélectionnez une option --</option>
+                {timelines.map((t) => (
+                  <option key={t} value={t}>{t}</option>
                 ))}
               </select>
             </div>
