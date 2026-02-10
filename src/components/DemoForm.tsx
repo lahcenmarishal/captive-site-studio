@@ -16,13 +16,6 @@ const activites = [
   "Autre",
 ];
 
-const budgets = [
-  "1 500 - 3 000 MAD",
-  "3 000 - 5 000 MAD",
-  "5 000 - 10 000 MAD",
-  "10 000 - 20 000 MAD",
-  "20 000+ MAD",
-];
 
 const timelines = [
   "Dès que possible",
@@ -46,7 +39,6 @@ const DemoForm = () => {
     email: "",
     entreprise: "",
     activite: "",
-    budget: "",
     timeline: "",
     service: "",
   });
@@ -72,7 +64,7 @@ const DemoForm = () => {
           content_category: formData.activite,
         });
       }
-      setFormData({ nom: "", telephone: "", email: "", entreprise: "", activite: "", budget: "", timeline: "", service: "" });
+      setFormData({ nom: "", telephone: "", email: "", entreprise: "", activite: "", timeline: "", service: "" });
     } catch (err: any) {
       console.error("Error:", err);
       toast.error("Une erreur est survenue. Veuillez réessayer.");
@@ -176,25 +168,14 @@ const DemoForm = () => {
               </select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
-                <label className="block text-sm font-medium mb-1.5">Budget envisagé *</label>
-                <select name="budget" required className={selectClass} value={formData.budget} onChange={handleChange}>
-                  <option value="">-- Sélectionnez une option --</option>
-                  {budgets.map((b) => (
-                    <option key={b} value={b}>{b}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1.5">Quand souhaitez-vous lancer ? *</label>
-                <select name="timeline" required className={selectClass} value={formData.timeline} onChange={handleChange}>
-                  <option value="">-- Sélectionnez une option --</option>
-                  {timelines.map((t) => (
-                    <option key={t} value={t}>{t}</option>
-                  ))}
-                </select>
-              </div>
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Quand souhaitez-vous lancer ? *</label>
+              <select name="timeline" required className={selectClass} value={formData.timeline} onChange={handleChange}>
+                <option value="">-- Sélectionnez une option --</option>
+                {timelines.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
             </div>
 
             <div>
