@@ -149,6 +149,7 @@ const DemoForm = () => {
 
             <div>
               <label className="block text-sm font-medium mb-1.5">Nom de votre entreprise / marque *</label>
+              <p className="text-xs text-muted-foreground mb-2">Offre réservée aux projets professionnels</p>
               <input
                 name="entreprise"
                 required
@@ -190,9 +191,11 @@ const DemoForm = () => {
               </select>
             </div>
 
-            <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl px-5 py-4 text-sm text-muted-foreground border border-primary/10">
-              <strong>À savoir :</strong> Nos projets de création de sites web démarrent à partir de{" "}
-              <span className="font-bold text-foreground">1 500 MAD</span>, selon les besoins.
+            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl px-5 py-4 text-sm border border-primary/20 flex items-start gap-3">
+              <Lock className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+              <p className="text-foreground">
+                <strong>🔒 Projets à partir de 2 000 MAD</strong> – offre réservée aux professionnels
+              </p>
             </div>
 
             <button
@@ -200,7 +203,7 @@ const DemoForm = () => {
               disabled={loading}
               className="w-full flex items-center justify-center gap-2 text-lg font-semibold text-primary-foreground px-8 py-4 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:shadow-[0_12px_32px_-4px_hsl(210_85%_45%/0.45)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? <><Loader2 className="w-5 h-5 animate-spin" /> Envoi en cours...</> : <>Voir ma démo personnalisée <Send className="w-5 h-5" /></>}
+              {loading ? <><Loader2 className="w-5 h-5 animate-spin" /> Envoi en cours...</> : <>👉 Demander ma démo personnalisée <Send className="w-5 h-5" /></>}
             </button>
 
             <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
