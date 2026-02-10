@@ -191,8 +191,7 @@ const DemoForm = () => {
               </select>
             </div>
 
-            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl px-5 py-4 text-sm border border-primary/20 flex items-start gap-3">
-              <Lock className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl px-5 py-4 text-sm border border-primary/20">
               <p className="text-foreground">
                 <strong>🔒 Projets à partir de 2 000 MAD</strong> – offre réservée aux professionnels
               </p>
