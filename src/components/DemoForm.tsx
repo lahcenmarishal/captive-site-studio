@@ -62,6 +62,8 @@ const DemoForm = () => {
         (window as any).fbq("track", "Lead", {
           content_name: formData.service,
           content_category: formData.activite,
+          currency: "MAD",
+          value: 0,
         });
       }
       setFormData({ nom: "", telephone: "", email: "", entreprise: "", activite: "", timeline: "", service: "" });
