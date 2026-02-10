@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Lock } from "lucide-react";
+import { Send, Lock, Sparkles } from "lucide-react";
 
 const activites = [
   "Restaurant / Café",
@@ -15,6 +15,7 @@ const activites = [
 ];
 
 const budgets = [
+  "1 500 - 3 000 MAD",
   "3 000 - 5 000 MAD",
   "5 000 - 10 000 MAD",
   "10 000 - 20 000 MAD",
@@ -54,7 +55,6 @@ const DemoForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Track Facebook Pixel Lead event
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "Lead", {
         content_name: formData.service,
@@ -65,21 +65,36 @@ const DemoForm = () => {
   };
 
   const selectClass =
-    "w-full rounded-xl border border-border bg-card px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none";
+    "w-full rounded-xl border border-border bg-background px-4 py-3.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none transition-all duration-200";
   const inputClass =
-    "w-full rounded-xl border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
+    "w-full rounded-xl border border-border bg-background px-4 py-3.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200";
 
   return (
-    <section id="demo-form" className="py-20 px-4 section-gradient">
-      <div className="max-w-2xl mx-auto">
-        <div className="form-card">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-center">
-            Recevoir Votre Démo Personnalisée
+    <section id="demo-form" className="py-24 px-4 relative overflow-hidden">
+      {/* Decorative blobs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl translate-y-1/2" />
+
+      <div className="max-w-2xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium px-4 py-1.5 rounded-full mb-4">
+            <Sparkles className="w-4 h-4" />
+            Gratuit & sans engagement
+          </span>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold">
+            Recevoir Votre Démo{" "}
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Personnalisée
+            </span>
           </h2>
-          <p className="text-muted-foreground text-center mt-2 mb-8">
+          <p className="text-muted-foreground mt-3 max-w-md mx-auto">
             Complétez le formulaire pour une qualification précise de votre projet
           </p>
+        </div>
 
+        {/* Form card */}
+        <div className="bg-card rounded-3xl border border-border p-8 md:p-10 shadow-[0_20px_60px_-15px_hsl(210_40%_12%/0.1)]">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium mb-1.5">Votre Nom *</label>
@@ -155,7 +170,7 @@ const DemoForm = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5">Quand souhaitez-vous lancer le site ? *</label>
+                <label className="block text-sm font-medium mb-1.5">Quand souhaitez-vous lancer ? *</label>
                 <select name="timeline" required className={selectClass} value={formData.timeline} onChange={handleChange}>
                   <option value="">-- Sélectionnez une option --</option>
                   {timelines.map((t) => (
@@ -175,18 +190,21 @@ const DemoForm = () => {
               </select>
             </div>
 
-            <div className="bg-muted rounded-xl px-5 py-3 text-sm text-muted-foreground">
+            <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl px-5 py-4 text-sm text-muted-foreground border border-primary/10">
               <strong>À savoir :</strong> Nos projets de création de sites web démarrent à partir de{" "}
-              <span className="font-bold text-foreground">3 000 MAD</span>, selon les besoins.
+              <span className="font-bold text-foreground">1 500 MAD</span>, selon les besoins.
             </div>
 
-            <button type="submit" className="cta-button w-full flex items-center justify-center gap-2 text-lg">
+            <button
+              type="submit"
+              className="w-full flex items-center justify-center gap-2 text-lg font-semibold text-primary-foreground px-8 py-4 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:shadow-[0_12px_32px_-4px_hsl(210_85%_45%/0.45)] hover:-translate-y-0.5"
+            >
               Voir ma démo personnalisée <Send className="w-5 h-5" />
             </button>
 
             <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <Lock className="w-4 h-4" />
-              Vos informations sont confidentielles et sécurisées. Aucun spam, promis.
+              Vos informations sont confidentielles et sécurisées.
             </p>
           </form>
         </div>
