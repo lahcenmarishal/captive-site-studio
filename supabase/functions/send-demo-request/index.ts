@@ -28,7 +28,7 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const data: DemoRequest = await req.json();
 
-    if (!data.nom || !data.telephone || !data.entreprise || !data.activite || !data.budget || !data.timeline || !data.service) {
+    if (!data.nom || !data.telephone || !data.entreprise || !data.activite || !data.timeline || !data.service) {
       throw new Error("Champs obligatoires manquants");
     }
 
@@ -60,10 +60,6 @@ const handler = async (req: Request): Promise<Response> => {
             <tr style="background: #f8fafc;">
               <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Activité</td>
               <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.activite}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Budget</td>
-              <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.budget}</td>
             </tr>
             <tr style="background: #f8fafc;">
               <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Timeline</td>

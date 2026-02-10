@@ -33,15 +33,15 @@ const HeroSection = () => {
           Recevoir Votre Démo <ArrowRight className="w-5 h-5" />
         </button>
 
-        <div className="grid grid-cols-3 gap-4 mt-16 max-w-lg mx-auto animate-fade-up" style={{ animationDelay: "0.4s" }}>
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-16 max-w-lg mx-auto animate-fade-up" style={{ animationDelay: "0.4s" }}>
           {[
             { value: "24h", label: "Réponse Rapide" },
             { value: "0 MAD", label: "Consultation" },
             { value: "100%", label: "Gratuit" },
           ].map((stat) => (
-            <div key={stat.label} className="stat-card bg-primary-foreground/10 border-primary-foreground/10 backdrop-blur-sm">
-              <div className="text-secondary font-heading font-bold text-xl">{stat.value}</div>
-              <div className="text-primary-foreground/60 text-sm mt-1">{stat.label}</div>
+            <div key={stat.label} className="stat-card bg-primary-foreground/10 border-primary-foreground/10 backdrop-blur-sm !px-3 !py-4 sm:!px-8 sm:!py-6">
+              <div className="text-secondary font-heading font-bold text-lg sm:text-xl">{stat.value}</div>
+              <div className="text-primary-foreground/60 text-xs sm:text-sm mt-1">{stat.label}</div>
             </div>
           ))}
         </div>
