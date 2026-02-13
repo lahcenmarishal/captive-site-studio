@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -32,6 +33,27 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Champs obligatoires manquants");
     }
 
+    // Store in database
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+
+    const { error: dbError } = await supabaseAdmin.from("demo_requests").insert({
+      nom: data.nom,
+      telephone: data.telephone,
+      email: data.email || null,
+      entreprise: data.entreprise,
+      activite: data.activite,
+      timeline: data.timeline,
+      service: data.service,
+    });
+
+    if (dbError) {
+      console.error("DB insert error:", dbError);
+    }
+
+    // Send email
     const emailResponse = await resend.emails.send({
       from: "Prodevelo <noreply@prodevelo.com>",
       to: ["lahsen.ecommerce@gmail.com"],
