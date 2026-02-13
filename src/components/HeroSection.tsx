@@ -39,7 +39,7 @@ const HeroSection = () => {
         <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-16 max-w-lg mx-auto animate-fade-up" style={{ animationDelay: "0.4s" }}>
           {[
             { value: "24h", label: "Réponse Rapide" },
-            { value: "2 000 MAD", label: "Prix de départ" },
+            { value: "50+", label: "Projets livrés" },
             { value: "Pro", label: "Projets éligibles" },
           ].map((stat) => (
             <div key={stat.label} className="stat-card bg-primary-foreground/10 border-primary-foreground/10 backdrop-blur-sm !px-3 !py-4 sm:!px-8 sm:!py-6">
