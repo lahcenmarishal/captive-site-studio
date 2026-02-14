@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Phone, Mail, Building2, Calendar, Lock, DollarSign } from "lucide-react";
+import { Phone, Mail, Building2, Calendar, Lock, DollarSign, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 type DemoRequest = {
@@ -101,11 +101,37 @@ function daysSince(date: string | null) {
   return Math.floor((Date.now() - new Date(date).getTime()) / 86400000);
 }
 
+const TERMINAL_STATUSES = ["non_qualifie", "non_qualifie_p2", "non_interesse", "non_interesse_final"];
+
 const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
   const [movingId, setMovingId] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<DemoRequest | null>(null);
   const [paymentAmount, setPaymentAmount] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
+  const deleteTerminalByPhase = async (phaseId: number) => {
+    const phase = PHASES.find((p) => p.id === phaseId);
+    if (!phase) return;
+    const terminalStatuses = phase.columns.filter((c) => c.terminal).map((c) => c.status);
+    const toDelete = requests.filter((r) => terminalStatuses.includes(r.status));
+    if (toDelete.length === 0) {
+      toast.info("Aucun prospect non qualifié dans cette phase");
+      return;
+    }
+    setDeleting(true);
+    const { error } = await supabase
+      .from("demo_requests")
+      .delete()
+      .in("id", toDelete.map((r) => r.id));
+    if (error) {
+      toast.error("Erreur lors de la suppression");
+      console.error(error);
+    } else {
+      toast.success(`${toDelete.length} prospect(s) supprimé(s)`);
+      onRefresh();
+    }
+    setDeleting(false);
+  };
   const moveToStatus = async (request: DemoRequest, newStatus: string) => {
     if (request.is_locked) {
       toast.error("Ce prospect est verrouillé (payé)");
@@ -224,10 +250,20 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
     <div className="space-y-6">
       {PHASES.map((phase) => (
         <div key={phase.id} className={`border-l-4 ${phase.color} rounded-xl overflow-hidden bg-card border border-border`}>
-          <div className={`px-4 py-3 ${phase.bgHeader} border-b border-border`}>
+          <div className={`px-4 py-3 ${phase.bgHeader} border-b border-border flex items-center justify-between`}>
             <h3 className="font-heading font-bold text-sm">
               {phase.emoji} PHASE {phase.id} — {phase.label}
             </h3>
+            {phase.columns.some((c) => c.terminal) && (
+              <button
+                onClick={() => deleteTerminalByPhase(phase.id)}
+                disabled={deleting}
+                className="flex items-center gap-1 text-xs text-destructive hover:text-destructive/80 transition-colors disabled:opacity-50"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                Supprimer non qualifiés
+              </button>
+            )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 divide-x divide-border">
             {phase.columns.map((col) => {
