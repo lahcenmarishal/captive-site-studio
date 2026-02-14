@@ -19,11 +19,15 @@ export type Database = {
           activite: string
           budget: string | null
           created_at: string
+          demo_sent_date: string | null
           email: string | null
           entreprise: string
           id: string
+          is_locked: boolean
           nom: string
           notes: string | null
+          payment_amount: number | null
+          payment_date: string | null
           service: string
           status: string
           telephone: string
@@ -34,11 +38,15 @@ export type Database = {
           activite: string
           budget?: string | null
           created_at?: string
+          demo_sent_date?: string | null
           email?: string | null
           entreprise: string
           id?: string
+          is_locked?: boolean
           nom: string
           notes?: string | null
+          payment_amount?: number | null
+          payment_date?: string | null
           service: string
           status?: string
           telephone: string
@@ -49,11 +57,15 @@ export type Database = {
           activite?: string
           budget?: string | null
           created_at?: string
+          demo_sent_date?: string | null
           email?: string | null
           entreprise?: string
           id?: string
+          is_locked?: boolean
           nom?: string
           notes?: string | null
+          payment_amount?: number | null
+          payment_date?: string | null
           service?: string
           status?: string
           telephone?: string
