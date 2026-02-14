@@ -1,0 +1,2 @@
+/* Rewrite all requests to index.html for SPA client-side routing */
+/*  /index.html  200
