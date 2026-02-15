@@ -35,7 +35,7 @@ const PHASES = [
     color: "border-blue-400",
     bgHeader: "bg-blue-50 dark:bg-blue-950/30",
     columns: [
-      { status: "nouvelle_demande", label: "🆕 Nouvelle demande", bg: "bg-blue-50 dark:bg-blue-900/20" },
+      { status: "nouveau", label: "🆕 Nouvelle demande", bg: "bg-blue-50 dark:bg-blue-900/20" },
       { status: "interesse", label: "✅ Intéressé", bg: "bg-emerald-50 dark:bg-emerald-900/20" },
       { status: "non_qualifie", label: "❌ Non qualifié", bg: "bg-red-50 dark:bg-red-900/20", terminal: true },
     ],
@@ -79,7 +79,7 @@ const PHASES = [
 
 // Map status to allowed next statuses (conditional logic)
 const ALLOWED_TRANSITIONS: Record<string, string[]> = {
-  nouvelle_demande: ["interesse", "non_qualifie"],
+  nouveau: ["interesse", "non_qualifie"],
   interesse: ["relance", "qualifie", "non_qualifie_p2"],
   relance: ["qualifie", "non_qualifie_p2", "relance"],
   qualifie: ["en_discussion", "paiement_en_attente", "non_interesse"],
@@ -194,9 +194,24 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
   const getRequestsByStatus = (status: string) =>
     requests.filter((r) => r.status === status);
 
+  const deleteRequest = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDeleting(true);
+    const { error } = await supabase.from("demo_requests").delete().eq("id", id);
+    if (error) {
+      toast.error("Erreur lors de la suppression");
+      console.error(error);
+    } else {
+      toast.success("Prospect supprimé");
+      onRefresh();
+    }
+    setDeleting(false);
+  };
+
   const renderCard = (r: DemoRequest) => {
     const demoAge = daysSince(r.demo_sent_date);
     const isLocked = r.is_locked;
+    const isTerminal = TERMINAL_STATUSES.includes(r.status);
 
     return (
       <div
@@ -239,7 +254,19 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
             </Badge>
           )}
         </div>
-        <div className="text-[10px] text-muted-foreground mt-2">{formatDate(r.created_at)}</div>
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-[10px] text-muted-foreground">{formatDate(r.created_at)}</span>
+          {isTerminal && (
+            <button
+              onClick={(e) => deleteRequest(r.id, e)}
+              disabled={deleting}
+              className="flex items-center gap-1 text-[10px] text-destructive hover:text-destructive/80 transition-colors disabled:opacity-50"
+            >
+              <Trash2 className="w-3 h-3" />
+              Supprimer
+            </button>
+          )}
+        </div>
       </div>
     );
   };
