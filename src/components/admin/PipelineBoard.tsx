@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Phone, Mail, Building2, Calendar, Lock, DollarSign, Trash2 } from "lucide-react";
+import { Phone, Mail, Building2, Calendar, Lock, DollarSign, Trash2, Save } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 
 type DemoRequest = {
@@ -108,6 +109,8 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
   const [selectedCard, setSelectedCard] = useState<DemoRequest | null>(null);
   const [paymentAmount, setPaymentAmount] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [editingNotes, setEditingNotes] = useState("");
+  const [savingNotes, setSavingNotes] = useState(false);
 
   const deleteTerminalByPhase = async (phaseId: number) => {
     const phase = PHASES.find((p) => p.id === phaseId);
@@ -216,7 +219,7 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
     return (
       <div
         key={r.id}
-        onClick={() => !isLocked && setSelectedCard(r)}
+        onClick={() => { if (!isLocked) { setSelectedCard(r); setEditingNotes(r.notes || ""); } }}
         className={`bg-card border border-border rounded-lg p-3 cursor-pointer hover:shadow-md transition-all text-sm ${
           isLocked ? "opacity-75 cursor-default" : ""
         } ${movingId === r.id ? "opacity-50 animate-pulse" : ""}`}
@@ -254,6 +257,9 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
             </Badge>
           )}
         </div>
+        {r.notes && (
+          <p className="text-[10px] text-muted-foreground mt-1.5 line-clamp-2 italic">📝 {r.notes}</p>
+        )}
         <div className="flex items-center justify-between mt-2">
           <span className="text-[10px] text-muted-foreground">{formatDate(r.created_at)}</span>
           {isTerminal && (
@@ -331,6 +337,37 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
               {selectedCard.demo_sent_date && (
                 <p><span className="text-muted-foreground">Démo envoyée :</span> {formatDate(selectedCard.demo_sent_date)} ({daysSince(selectedCard.demo_sent_date)}j)</p>
               )}
+            </div>
+
+            <div className="mb-4">
+              <label className="text-xs font-semibold text-muted-foreground mb-1 block">Notes / Commentaire</label>
+              <Textarea
+                value={editingNotes}
+                onChange={(e) => setEditingNotes(e.target.value)}
+                placeholder="Ajouter une note..."
+                className="text-sm min-h-[60px]"
+              />
+              <button
+                onClick={async () => {
+                  setSavingNotes(true);
+                  const { error } = await supabase
+                    .from("demo_requests")
+                    .update({ notes: editingNotes || null })
+                    .eq("id", selectedCard.id);
+                  if (error) {
+                    toast.error("Erreur de sauvegarde");
+                  } else {
+                    toast.success("Note enregistrée");
+                    onRefresh();
+                  }
+                  setSavingNotes(false);
+                }}
+                disabled={savingNotes}
+                className="mt-2 flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg border border-border bg-background hover:bg-muted transition-colors disabled:opacity-50"
+              >
+                <Save className="w-3 h-3" />
+                {savingNotes ? "Enregistrement..." : "Enregistrer la note"}
+              </button>
             </div>
 
             {nextStatuses.length > 0 && (
