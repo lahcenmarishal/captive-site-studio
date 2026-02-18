@@ -17,30 +17,13 @@ const activites = [
 ];
 
 
-const timelines = [
-  "Dès que possible",
-  "Dans 1-2 semaines",
-  "Dans 1 mois",
-  "Je ne suis pas sûr",
-];
-
-const services = [
-  "Site vitrine",
-  "E-commerce",
-  "Landing page",
-  "Application web",
-  "Refonte de site existant",
-];
 
 const DemoForm = () => {
   const [formData, setFormData] = useState({
     nom: "",
     telephone: "",
     email: "",
-    entreprise: "",
     activite: "",
-    timeline: "",
-    service: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -60,13 +43,12 @@ const DemoForm = () => {
       toast.success("Merci ! Nous vous contacterons sous 24h avec votre démo personnalisée.");
       if (typeof window !== "undefined" && (window as any).fbq) {
         (window as any).fbq("track", "Lead", {
-          content_name: formData.service,
           content_category: formData.activite,
           currency: "MAD",
           value: 0,
         });
       }
-      setFormData({ nom: "", telephone: "", email: "", entreprise: "", activite: "", timeline: "", service: "" });
+      setFormData({ nom: "", telephone: "", email: "", activite: "" });
     } catch (err: any) {
       console.error("Error:", err);
       toast.error("Une erreur est survenue. Veuillez réessayer.");
@@ -148,45 +130,11 @@ const DemoForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1.5">Nom de votre entreprise / marque *</label>
-              <p className="text-xs text-muted-foreground mb-2">Offre réservée aux projets professionnels</p>
-              <input
-                name="entreprise"
-                required
-                placeholder="Exemple : Café Atlas, Boutique XYZ..."
-                className={inputClass}
-                value={formData.entreprise}
-                onChange={handleChange}
-                maxLength={150}
-              />
-            </div>
-
-            <div>
               <label className="block text-sm font-medium mb-1.5">Nature de l'activité *</label>
               <select name="activite" required className={selectClass} value={formData.activite} onChange={handleChange}>
                 <option value="">-- Sélectionnez une activité --</option>
                 {activites.map((a) => (
                   <option key={a} value={a}>{a}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Type de service *</label>
-              <select name="service" required className={selectClass} value={formData.service} onChange={handleChange}>
-                <option value="">-- Sélectionnez un service --</option>
-                {services.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Quand souhaitez-vous lancer ? *</label>
-              <select name="timeline" required className={selectClass} value={formData.timeline} onChange={handleChange}>
-                <option value="">-- Sélectionnez une option --</option>
-                {timelines.map((t) => (
-                  <option key={t} value={t}>{t}</option>
                 ))}
               </select>
             </div>

@@ -14,11 +14,7 @@ interface DemoRequest {
   nom: string;
   telephone: string;
   email: string;
-  entreprise: string;
   activite: string;
-  budget: string;
-  timeline: string;
-  service: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -29,7 +25,7 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const data: DemoRequest = await req.json();
 
-    if (!data.nom || !data.telephone || !data.entreprise || !data.activite || !data.timeline || !data.service) {
+    if (!data.nom || !data.telephone || !data.activite) {
       throw new Error("Champs obligatoires manquants");
     }
 
@@ -43,10 +39,7 @@ const handler = async (req: Request): Promise<Response> => {
       nom: data.nom,
       telephone: data.telephone,
       email: data.email || null,
-      entreprise: data.entreprise,
       activite: data.activite,
-      timeline: data.timeline,
-      service: data.service,
     });
 
     if (dbError) {
@@ -57,7 +50,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: "Prodevelo <noreply@prodevelo.com>",
       to: ["lahsen.ecommerce@gmail.com"],
-      subject: `Nouvelle demande de démo — ${data.entreprise}`,
+      subject: `Nouvelle demande de démo — ${data.nom}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <h1 style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px;">🚀 Nouvelle Demande de Démo</h1>
@@ -76,20 +69,8 @@ const handler = async (req: Request): Promise<Response> => {
               <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.email || "Non fourni"}</td>
             </tr>
             <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Entreprise</td>
-              <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.entreprise}</td>
-            </tr>
-            <tr style="background: #f8fafc;">
               <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Activité</td>
               <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.activite}</td>
-            </tr>
-            <tr style="background: #f8fafc;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Timeline</td>
-              <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.timeline}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Service</td>
-              <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.service}</td>
             </tr>
           </table>
 
