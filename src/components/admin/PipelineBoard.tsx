@@ -183,6 +183,7 @@ const PipelineBoard = ({ requests, onRefresh }: PipelineBoardProps) => {
       toast.success("Statut mis à jour");
       setSelectedCard(null);
       setPaymentAmount("");
+      onRefresh();
     }
     setMovingId(null);
   };
