@@ -74,6 +74,92 @@ export type Database = {
         }
         Relationships: []
       }
+      license_activations: {
+        Row: {
+          activated_at: string
+          deactivated_at: string | null
+          domain: string
+          id: string
+          ip_address: string | null
+          is_active: boolean
+          license_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          activated_at?: string
+          deactivated_at?: string | null
+          domain: string
+          id?: string
+          ip_address?: string | null
+          is_active?: boolean
+          license_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          activated_at?: string
+          deactivated_at?: string | null
+          domain?: string
+          id?: string
+          ip_address?: string | null
+          is_active?: boolean
+          license_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "license_activations_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      licenses: {
+        Row: {
+          allowed_domains: string[]
+          created_at: string
+          current_activations: number
+          email: string
+          expiration_date: string | null
+          id: string
+          license_key_hash: string
+          license_key_prefix: string
+          max_activations: number
+          product_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          allowed_domains?: string[]
+          created_at?: string
+          current_activations?: number
+          email: string
+          expiration_date?: string | null
+          id?: string
+          license_key_hash: string
+          license_key_prefix: string
+          max_activations?: number
+          product_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          allowed_domains?: string[]
+          created_at?: string
+          current_activations?: number
+          email?: string
+          expiration_date?: string | null
+          id?: string
+          license_key_hash?: string
+          license_key_prefix?: string
+          max_activations?: number
+          product_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
