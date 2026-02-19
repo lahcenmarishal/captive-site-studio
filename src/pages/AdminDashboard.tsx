@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Code2, LogOut, RefreshCw, Eye, Clock, CheckCircle, XCircle, BarChart3 } from "lucide-react";
+import { Code2, LogOut, RefreshCw, Eye, Clock, CheckCircle, XCircle, BarChart3, KeyRound } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import PipelineBoard from "@/components/admin/PipelineBoard";
@@ -89,6 +89,9 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-4">
             <Link to="/admin/overview" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <BarChart3 className="w-4 h-4" /> Vue d'ensemble
+            </Link>
+            <Link to="/admin/licenses" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <KeyRound className="w-4 h-4" /> Licences
             </Link>
             <button onClick={handleLogout} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <LogOut className="w-4 h-4" /> Déconnexion
