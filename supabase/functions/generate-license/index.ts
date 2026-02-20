@@ -8,9 +8,9 @@ const corsHeaders = {
 
 function generateLicenseKey(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  const segments = 4;
+  const segments = 3;
   const segLen = 4;
-  const parts: string[] = [];
+  const parts: string[] = ["PROD"];
   for (let i = 0; i < segments; i++) {
     let seg = "";
     for (let j = 0; j < segLen; j++) {
