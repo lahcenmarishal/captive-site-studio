@@ -115,6 +115,45 @@ export type Database = {
           },
         ]
       }
+      license_api_logs: {
+        Row: {
+          created_at: string
+          domain: string | null
+          endpoint: string
+          id: string
+          ip_address: string | null
+          license_key_prefix: string | null
+          rejection_reason: string | null
+          request_timestamp: number | null
+          status: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          domain?: string | null
+          endpoint: string
+          id?: string
+          ip_address?: string | null
+          license_key_prefix?: string | null
+          rejection_reason?: string | null
+          request_timestamp?: number | null
+          status: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          domain?: string | null
+          endpoint?: string
+          id?: string
+          ip_address?: string | null
+          license_key_prefix?: string | null
+          rejection_reason?: string | null
+          request_timestamp?: number | null
+          status?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       licenses: {
         Row: {
           allowed_domains: string[]

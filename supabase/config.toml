@@ -1,1 +1,16 @@
 project_id = "effzxjwkihsdncwrrmoh"
+
+[functions.verify-license]
+verify_jwt = false
+
+[functions.activate-license]
+verify_jwt = false
+
+[functions.deactivate-license]
+verify_jwt = false
+
+[functions.generate-license]
+verify_jwt = false
+
+[functions.send-demo-request]
+verify_jwt = false

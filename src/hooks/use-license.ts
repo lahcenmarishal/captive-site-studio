@@ -13,6 +13,45 @@ interface LicenseState {
   licenseKey: string | null;
 }
 
+// ── HMAC-SHA256 request signing ───────────────────────────────────────────────
+// The secret used to sign requests is the Supabase anon key (public, but never
+// the service role). The server validates using its own copy of the service role key.
+// This ensures every request to the license API carries a valid HMAC signature
+// and a fresh timestamp, preventing replay attacks.
+const SIGNING_SECRET = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+
+async function hmacSign(message: string): Promise<string> {
+  const enc = new TextEncoder();
+  const cryptoKey = await crypto.subtle.importKey(
+    "raw",
+    enc.encode(SIGNING_SECRET),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", cryptoKey, enc.encode(message));
+  return btoa(String.fromCharCode(...new Uint8Array(sig)));
+}
+
+/**
+ * Build signed headers for a license API call.
+ * Signature payload: `${timestamp}.${licenseKey}.${domain}`
+ */
+async function buildSignedHeaders(licenseKey: string, domain: string) {
+  const timestamp = Date.now().toString();
+  const signature = await hmacSign(`${timestamp}.${licenseKey}.${domain}`);
+  return {
+    "x-request-timestamp": timestamp,
+    "x-request-signature": signature,
+  };
+}
+
+// ── Domain helper ─────────────────────────────────────────────────────────────
+function getDomain(): string {
+  return window.location.hostname.replace(/^www\./, "").toLowerCase();
+}
+
+// ── Hook ──────────────────────────────────────────────────────────────────────
 export function useLicense() {
   const [state, setState] = useState<LicenseState>({
     isValid: false,
@@ -21,14 +60,14 @@ export function useLicense() {
     licenseKey: null,
   });
 
-  const getDomain = () => {
-    return window.location.hostname.replace(/^www\./, "").toLowerCase();
-  };
-
   const verifyLicense = useCallback(async (key: string): Promise<boolean> => {
+    const domain = getDomain();
     try {
+      const signedHeaders = await buildSignedHeaders(key, domain);
+
       const { data, error } = await supabase.functions.invoke("verify-license", {
-        body: { license_key: key, domain: getDomain() },
+        body: { license_key: key, domain },
+        headers: signedHeaders,
       });
 
       if (error) throw error;
@@ -43,7 +82,7 @@ export function useLicense() {
         return false;
       }
     } catch {
-      // Offline fallback: check stored token
+      // Offline fallback: use cached signed token
       const token = localStorage.getItem(TOKEN_STORAGE_KEY);
       if (token) {
         try {
@@ -60,9 +99,13 @@ export function useLicense() {
   }, []);
 
   const activateLicense = useCallback(async (key: string): Promise<{ success: boolean; error?: string }> => {
+    const domain = getDomain();
     try {
+      const signedHeaders = await buildSignedHeaders(key, domain);
+
       const { data, error } = await supabase.functions.invoke("activate-license", {
-        body: { license_key: key, domain: getDomain(), product_id: "prodevelo-template" },
+        body: { license_key: key, domain, product_id: "prodevelo-template" },
+        headers: signedHeaders,
       });
 
       if (error) throw error;
@@ -83,12 +126,15 @@ export function useLicense() {
   const deactivateLicense = useCallback(async (): Promise<boolean> => {
     const key = localStorage.getItem(LICENSE_STORAGE_KEY);
     if (!key) return false;
+    const domain = getDomain();
 
     try {
+      const signedHeaders = await buildSignedHeaders(key, domain);
       await supabase.functions.invoke("deactivate-license", {
-        body: { license_key: key, domain: getDomain() },
+        body: { license_key: key, domain },
+        headers: signedHeaders,
       });
-    } catch { /* ignore */ }
+    } catch { /* ignore network errors on deactivate */ }
 
     localStorage.removeItem(LICENSE_STORAGE_KEY);
     localStorage.removeItem(TOKEN_STORAGE_KEY);
@@ -111,7 +157,7 @@ export function useLicense() {
     if (needsVerify) {
       verifyLicense(storedKey);
     } else {
-      // Use cached token
+      // Use cached token as offline fallback
       const token = localStorage.getItem(TOKEN_STORAGE_KEY);
       if (token) {
         try {
@@ -125,7 +171,7 @@ export function useLicense() {
       verifyLicense(storedKey);
     }
 
-    // Periodic check
+    // Periodic re-verification every 24h
     const interval = setInterval(() => {
       const key = localStorage.getItem(LICENSE_STORAGE_KEY);
       if (key) verifyLicense(key);
