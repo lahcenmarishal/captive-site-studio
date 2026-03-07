@@ -18,12 +18,12 @@ const Portfolio = () => {
     queryKey: ["portfolio-projects"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("portfolio_projects")
+        .from("portfolio_projects" as any)
         .select("*")
         .eq("published", true)
         .order("display_order", { ascending: true });
       if (error) throw error;
-      return data as PortfolioProject[];
+      return (data ?? []) as unknown as PortfolioProject[];
     },
   });
 
