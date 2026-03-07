@@ -15,7 +15,7 @@ const MentionsLegales = () => (
               <li><strong className="text-foreground">Nom du studio :</strong> Prodevelo</li>
               <li><strong className="text-foreground">Statut :</strong> Freelance Web Developer</li>
               <li><strong className="text-foreground">Pays :</strong> Maroc</li>
-              <li><strong className="text-foreground">Email :</strong> contact@prodevelo.com</li>
+              <li><strong className="text-foreground">Email :</strong> contact.prodevelo@gmail.com</li>
             </ul>
           </div>
 
