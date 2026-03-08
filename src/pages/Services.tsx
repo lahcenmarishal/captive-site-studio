@@ -28,7 +28,6 @@ const services = [
     subtitle: "Pour entreprises qui veulent gérer leur site",
     price: "890 €",
     delay: "5 à 10 jours",
-    popular: true,
     features: [
       "Design personnalisé",
       "Site responsive optimisé conversion",
