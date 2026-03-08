@@ -30,13 +30,6 @@ const MentionsLegales = () => (
           </div>
 
           <div>
-            <h2 className="font-heading text-lg font-bold mb-2">Hébergement</h2>
-            <p className="text-sm text-muted-foreground">
-              Ce site est hébergé par Lovable (lovable.dev).
-            </p>
-          </div>
-
-          <div>
             <h2 className="font-heading text-lg font-bold mb-2">Propriété intellectuelle</h2>
             <p className="text-sm text-muted-foreground">
               L'ensemble du contenu de ce site (textes, images, logos, design) est la propriété exclusive de Prodevelo. Toute reproduction, même partielle, est interdite sans autorisation préalable.
