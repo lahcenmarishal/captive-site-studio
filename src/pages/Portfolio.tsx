@@ -4,6 +4,8 @@ import { ArrowRight, FolderOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import AnimatedSection from "@/components/AnimatedSection";
+import DecorativeBlobs from "@/components/DecorativeBlobs";
 
 interface PortfolioProject {
   id: string;
@@ -18,28 +20,29 @@ const Portfolio = () => {
     queryKey: ["portfolio-projects"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("portfolio_projects" as any)
+        .from("portfolio_projects")
         .select("*")
         .eq("published", true)
         .order("display_order", { ascending: true });
       if (error) throw error;
-      return (data ?? []) as unknown as PortfolioProject[];
+      return (data ?? []) as PortfolioProject[];
     },
   });
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+      <main className="pt-24 pb-16 px-4 relative overflow-hidden">
+        <DecorativeBlobs variant="section" />
+        <div className="max-w-6xl mx-auto relative z-10">
+          <AnimatedSection className="text-center mb-16">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">
-              Notre <span className="text-primary">Portfolio</span>
+              Notre <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Portfolio</span>
             </h1>
             <p className="text-muted-foreground mt-4 max-w-xl mx-auto text-lg">
               Découvrez nos réalisations récentes
             </p>
-          </div>
+          </AnimatedSection>
 
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,42 +52,39 @@ const Portfolio = () => {
             </div>
           ) : projects && projects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((p) => (
-                <div
-                  key={p.id}
-                  className="group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="aspect-video bg-muted overflow-hidden">
-                    {p.image_url ? (
-                      <img src={p.image_url} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                        <FolderOpen className="w-12 h-12" />
-                      </div>
-                    )}
+              {projects.map((p, i) => (
+                <AnimatedSection key={p.id} delay={i * 0.08}>
+                  <div className="group relative bg-card/80 backdrop-blur-sm rounded-2xl border border-border overflow-hidden hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 transition-all duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                    <div className="aspect-video bg-muted overflow-hidden">
+                      {p.image_url ? (
+                        <img src={p.image_url} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          <FolderOpen className="w-12 h-12" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="relative p-6">
+                      <span className="text-xs font-medium text-secondary bg-secondary/10 px-2.5 py-1 rounded-full">{p.type}</span>
+                      <h3 className="font-heading font-bold text-lg mt-3">{p.name}</h3>
+                      <p className="text-muted-foreground text-sm mt-2 line-clamp-2">{p.description}</p>
+                      <Link to="/contact" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
+                        Créer un site similaire <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
                   </div>
-                  <div className="p-6">
-                    <span className="text-xs font-medium text-secondary bg-secondary/10 px-2.5 py-1 rounded-full">{p.type}</span>
-                    <h3 className="font-heading font-bold text-lg mt-3">{p.name}</h3>
-                    <p className="text-muted-foreground text-sm mt-2 line-clamp-2">{p.description}</p>
-                    <Link
-                      to="/contact"
-                      className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-                    >
-                      Créer un site similaire <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
+                </AnimatedSection>
               ))}
             </div>
           ) : (
-            <div className="text-center py-20">
+            <AnimatedSection className="text-center py-20">
               <FolderOpen className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
               <p className="text-muted-foreground text-lg">Nos projets seront bientôt affichés ici.</p>
               <Link to="/contact" className="mt-4 inline-flex items-center gap-2 cta-button !py-3 !px-6 text-sm">
                 Demander un devis <ArrowRight className="w-4 h-4" />
               </Link>
-            </div>
+            </AnimatedSection>
           )}
         </div>
       </main>

@@ -1,73 +1,128 @@
-import { Code2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Code2, ArrowRight, Mail } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Footer = () => (
-  <footer className="bg-card border-t border-border">
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Brand */}
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Code2 className="w-5 h-5 text-primary-foreground" />
+const Footer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const scrollToForm = () => {
+    if (location.pathname !== "/") {
+      navigate("/#demo-form");
+      return;
+    }
+    document.getElementById("demo-form")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <footer className="relative overflow-hidden">
+      {/* Top decorative line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+      <div className="bg-gradient-to-b from-[hsl(210_40%_12%)] to-[hsl(210_45%_8%)] text-[hsl(210_20%_85%)]">
+        {/* Mini CTA bar */}
+        <div className="border-b border-[hsl(210_30%_20%)]">
+          <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h3 className="font-heading font-bold text-lg text-white">Un projet en tête ?</h3>
+              <p className="text-sm text-[hsl(210_20%_65%)]">Recevez une démo gratuite personnalisée en 24h</p>
             </div>
-            <span className="font-heading font-bold text-lg">
-              Pro<span className="text-secondary">develo</span>
-            </span>
-          </div>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            Création de sites web professionnels pour entreprises et entrepreneurs. Démo gratuite et livraison rapide.
-          </p>
-        </div>
-
-        {/* Navigation */}
-        <div>
-          <h4 className="font-heading font-bold text-sm mb-3">Navigation</h4>
-          <ul className="space-y-2">
-            {[
-              { to: "/", label: "Accueil" },
-              { to: "/services", label: "Services" },
-              { to: "/portfolio", label: "Portfolio" },
-              { to: "/contact", label: "Contact" },
-              { to: "/mentions-legales", label: "Mentions légales" },
-            ].map((link) => (
-              <li key={link.to}>
-                <Link to={link.to} className="text-muted-foreground text-sm hover:text-primary transition-colors">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Contact */}
-        <div>
-          <h4 className="font-heading font-bold text-sm mb-3">Contact</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>
-              <a href="mailto:contact.prodevelo@gmail.com" className="hover:text-primary transition-colors">
-                contact.prodevelo@gmail.com
-              </a>
-            </li>
-          </ul>
-          <div className="mt-4">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+            <button
+              onClick={scrollToForm}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-[hsl(195_80%_42%)] text-primary-foreground font-semibold px-6 py-3 rounded-xl hover:shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.4)] hover:-translate-y-0.5 transition-all duration-300"
             >
-              Demander un devis →
-            </Link>
+              Recevoir ma démo gratuite <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Col 1: Brand */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                  <Code2 className="w-5 h-5 text-primary-foreground" />
+                </div>
+                <span className="font-heading font-bold text-lg text-white">
+                  Pro<span className="text-secondary">develo</span>
+                </span>
+              </div>
+              <p className="text-sm leading-relaxed text-[hsl(210_20%_65%)]">
+                Création de sites web professionnels pour entreprises et entrepreneurs. Démo gratuite et livraison rapide.
+              </p>
+              {/* Social icons */}
+              <div className="flex items-center gap-3 mt-5">
+                <a href="https://wa.me/212671588356" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[hsl(210_30%_18%)] flex items-center justify-center hover:bg-primary/20 transition-colors" aria-label="WhatsApp">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-secondary"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+                <a href="mailto:contact.prodevelo@gmail.com" className="w-9 h-9 rounded-lg bg-[hsl(210_30%_18%)] flex items-center justify-center hover:bg-primary/20 transition-colors" aria-label="Email">
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* Col 2: Navigation */}
+            <div>
+              <h4 className="font-heading font-bold text-sm text-white mb-4">Navigation</h4>
+              <ul className="space-y-2.5">
+                {[
+                  { to: "/", label: "Accueil" },
+                  { to: "/services", label: "Services" },
+                  { to: "/portfolio", label: "Portfolio" },
+                  { to: "/contact", label: "Contact" },
+                  { to: "/mentions-legales", label: "Mentions légales" },
+                ].map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className="text-sm text-[hsl(210_20%_65%)] hover:text-white transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 3: Contact */}
+            <div>
+              <h4 className="font-heading font-bold text-sm text-white mb-4">Contact</h4>
+              <ul className="space-y-3 text-sm text-[hsl(210_20%_65%)]">
+                <li>
+                  <a href="mailto:contact.prodevelo@gmail.com" className="hover:text-white transition-colors flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-primary" /> contact.prodevelo@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wa.me/212671588356" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="hsl(var(--secondary))" className="shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    +212 671 588 356
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 4: CTA */}
+            <div>
+              <h4 className="font-heading font-bold text-sm text-white mb-4">Démarrer un projet</h4>
+              <p className="text-sm text-[hsl(210_20%_65%)] mb-4">
+                Prêt à lancer votre site web ? Commencez par une démo gratuite.
+              </p>
+              <button
+                onClick={scrollToForm}
+                className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-primary-foreground bg-primary px-5 py-3 rounded-xl hover:bg-primary/90 transition-colors"
+              >
+                Recevoir une démo gratuite <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="border-t border-[hsl(210_30%_18%)] mt-10 pt-6 text-center">
+            <p className="text-[hsl(210_20%_55%)] text-sm">
+              © {new Date().getFullYear()} Prodevelo – Création de sites web professionnels
+            </p>
           </div>
         </div>
       </div>
-
-      <div className="border-t border-border mt-10 pt-6 text-center">
-        <p className="text-muted-foreground text-sm">
-          © {new Date().getFullYear()} Prodevelo – Création de sites web professionnels
-        </p>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Footer;

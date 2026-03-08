@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Send, Lock, Sparkles, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import AnimatedSection from "./AnimatedSection";
+import DecorativeBlobs from "./DecorativeBlobs";
 
 const projectTypes = [
   "Site vitrine",
@@ -66,11 +68,10 @@ const DemoForm = () => {
 
   return (
     <section id="demo-form" className="py-24 px-4 relative overflow-hidden">
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl translate-y-1/2" />
+      <DecorativeBlobs variant="section" />
 
       <div className="max-w-2xl mx-auto relative z-10">
-        <div className="text-center mb-10">
+        <AnimatedSection className="text-center mb-10">
           <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium px-4 py-1.5 rounded-full mb-4">
             <Sparkles className="w-4 h-4" />
             Gratuit & sans engagement
@@ -84,60 +85,62 @@ const DemoForm = () => {
           <p className="text-muted-foreground mt-3 max-w-md mx-auto">
             Complétez le formulaire pour recevoir votre démo gratuite
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="bg-card rounded-3xl border border-border p-8 md:p-10 shadow-[0_20px_60px_-15px_hsl(210_40%_12%/0.1)]">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Nom et prénom *</label>
-              <input name="nom" required placeholder="Jean Dupont" className={inputClass} value={formData.nom} onChange={handleChange} maxLength={100} />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <AnimatedSection delay={0.15}>
+          <div className="bg-card/80 backdrop-blur-sm rounded-3xl border border-border p-8 md:p-10 shadow-[0_20px_60px_-15px_hsl(210_40%_12%/0.1)]">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium mb-1.5">Email *</label>
-                <input name="email" type="email" required placeholder="votre@email.com" className={inputClass} value={formData.email} onChange={handleChange} maxLength={255} />
+                <label className="block text-sm font-medium mb-1.5">Nom et prénom *</label>
+                <input name="nom" required placeholder="Jean Dupont" className={inputClass} value={formData.nom} onChange={handleChange} maxLength={100} />
               </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Email *</label>
+                  <input name="email" type="email" required placeholder="votre@email.com" className={inputClass} value={formData.email} onChange={handleChange} maxLength={255} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Téléphone *</label>
+                  <input name="telephone" required placeholder="+33 6 XX XX XX XX" className={inputClass} value={formData.telephone} onChange={handleChange} maxLength={20} />
+                </div>
+              </div>
+
               <div>
-                <label className="block text-sm font-medium mb-1.5">Téléphone *</label>
-                <input name="telephone" required placeholder="+33 6 XX XX XX XX" className={inputClass} value={formData.telephone} onChange={handleChange} maxLength={20} />
+                <label className="block text-sm font-medium mb-1.5">Entreprise ou activité *</label>
+                <input name="entreprise" required placeholder="Nom de votre entreprise" className={inputClass} value={formData.entreprise} onChange={handleChange} maxLength={100} />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Entreprise ou activité *</label>
-              <input name="entreprise" required placeholder="Nom de votre entreprise" className={inputClass} value={formData.entreprise} onChange={handleChange} maxLength={100} />
-            </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5">Type de projet *</label>
+                <select name="activite" required className={selectClass} value={formData.activite} onChange={handleChange}>
+                  <option value="">-- Sélectionnez un type de projet --</option>
+                  {projectTypes.map((a) => (
+                    <option key={a} value={a}>{a}</option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Type de projet *</label>
-              <select name="activite" required className={selectClass} value={formData.activite} onChange={handleChange}>
-                <option value="">-- Sélectionnez un type de projet --</option>
-                {projectTypes.map((a) => (
-                  <option key={a} value={a}>{a}</option>
-                ))}
-              </select>
-            </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5">Description du projet</label>
+                <textarea name="message" placeholder="Décrivez brièvement votre projet..." className={inputClass + " min-h-[100px] resize-y"} value={formData.message} onChange={handleChange} maxLength={1000} />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Description du projet</label>
-              <textarea name="message" placeholder="Décrivez brièvement votre projet..." className={inputClass + " min-h-[100px] resize-y"} value={formData.message} onChange={handleChange} maxLength={1000} />
-            </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="group w-full flex items-center justify-center gap-2 text-lg font-semibold text-primary-foreground px-8 py-4 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:shadow-[0_12px_32px_-4px_hsl(210_85%_45%/0.45)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading ? <><Loader2 className="w-5 h-5 animate-spin" /> Envoi en cours...</> : <>Recevoir ma démo gratuite <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>}
+              </button>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2 text-lg font-semibold text-primary-foreground px-8 py-4 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:shadow-[0_12px_32px_-4px_hsl(210_85%_45%/0.45)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {loading ? <><Loader2 className="w-5 h-5 animate-spin" /> Envoi en cours...</> : <>Recevoir ma démo gratuite <Send className="w-5 h-5" /></>}
-            </button>
-
-            <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground text-center">
-              <Lock className="w-4 h-4" />
-              Réponse sous 24h – Démo gratuite sans engagement.
-            </p>
-          </form>
-        </div>
+              <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground text-center">
+                <Lock className="w-4 h-4" />
+                Réponse sous 24h – Démo gratuite sans engagement.
+              </p>
+            </form>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
