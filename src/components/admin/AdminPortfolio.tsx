@@ -14,6 +14,7 @@ type Project = {
   published: boolean;
   display_order: number;
   created_at: string;
+  technologies: string[];
 };
 
 const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false };
