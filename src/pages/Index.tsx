@@ -11,12 +11,19 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.hash === "#demo-form") {
-      setTimeout(() => {
-        document.getElementById("demo-form")?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }
-  }, [location]);
+    const isDemoFormHash =
+      location.hash === "#demo-form" || location.hash.startsWith("#demo-form?");
+
+    if (!isDemoFormHash) return;
+
+    // Wait a tick to ensure the form is mounted, then scroll precisely to it.
+    setTimeout(() => {
+      document.getElementById("demo-form")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 50);
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen bg-background">

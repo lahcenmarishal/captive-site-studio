@@ -26,12 +26,24 @@ const DemoForm = () => {
   });
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const typeParam = params.get("type");
+    const getTypeParam = () => {
+      const fromSearch = new URLSearchParams(location.search).get("type");
+      if (fromSearch) return fromSearch;
+
+      // Supports URLs like /#demo-form?type=Site%20e-commerce
+      const rawHash = location.hash?.startsWith("#") ? location.hash.slice(1) : location.hash;
+      const qIndex = rawHash.indexOf("?");
+      if (qIndex === -1) return null;
+
+      const hashQuery = rawHash.slice(qIndex + 1);
+      return new URLSearchParams(hashQuery).get("type");
+    };
+
+    const typeParam = getTypeParam();
     if (typeParam && projectTypes.includes(typeParam)) {
       setFormData((prev) => ({ ...prev, activite: typeParam }));
     }
-  }, [location.search]);
+  }, [location.search, location.hash]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
