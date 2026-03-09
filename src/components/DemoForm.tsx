@@ -144,7 +144,7 @@ const DemoForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1.5">Description du projet</label>
+                <label className="block text-sm font-medium mb-1.5">Description du projet <span className="text-muted-foreground font-normal">(optionnel)</span></label>
                 <textarea name="message" placeholder="Décrivez brièvement votre projet..." className={inputClass + " min-h-[100px] resize-y"} value={formData.message} onChange={handleChange} maxLength={1000} />
               </div>
 
