@@ -160,6 +160,11 @@ const AdminPortfolio = () => {
                 <input className={inputClass} value={editing.name || ""} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Mon Super Projet" />
               </div>
               <div>
+                <label className="block text-sm font-medium mb-1">URL du site</label>
+                <input className={inputClass} value={editing.website_url || ""} onChange={(e) => setEditing({ ...editing, website_url: e.target.value })} placeholder="https://www.example.com" />
+                <p className="text-xs text-muted-foreground mt-1">Le nom du projet deviendra un lien cliquable vers cette URL</p>
+              </div>
+              <div>
                 <label className="block text-sm font-medium mb-1">Titre du site *</label>
                 <input className={inputClass} value={editing.site_title || ""} onChange={(e) => setEditing({ ...editing, site_title: e.target.value })} placeholder="Titre affiché sur la page portfolio" />
               </div>
