@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { resolveTechnologies } from "@/lib/portfolioTech";
 import { Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X, Save, Loader2, ImageIcon, Upload } from "lucide-react";
 
 type Project = {
@@ -17,7 +18,7 @@ type Project = {
   technologies: string[];
 };
 
-const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false, technologies: [] };
+const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false, technologies: resolveTechnologies("Site vitrine", null) };
 
 const AdminPortfolio = () => {
   const queryClient = useQueryClient();
@@ -117,8 +118,12 @@ const AdminPortfolio = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-heading text-xl font-bold">Portfolio</h2>
-        <button
-          onClick={() => { setEditing({ ...emptyProject, display_order: projects.length }); setIsNew(true); }}
+          <button
+            onClick={() => {
+              const type = "Site vitrine";
+              setEditing({ ...emptyProject, type, technologies: resolveTechnologies(type, null), display_order: projects.length });
+              setIsNew(true);
+            }}
           className="flex items-center gap-2 text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
         >
           <Plus className="w-4 h-4" /> Ajouter un projet
@@ -146,22 +151,27 @@ const AdminPortfolio = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">Type de site *</label>
-                <select className={inputClass} value={editing.type || ""} onChange={(e) => {
-                  const type = e.target.value;
-                  const baseTech = ["React", "TypeScript", "Tailwind CSS"];
-                  const techMap: Record<string, string[]> = {
-                    "Site vitrine": baseTech,
-                    "Site vitrine professionnel": [...baseTech, "Supabase"],
-                    "Site e-commerce": [...baseTech, "Supabase"],
-                    "Application web": [...baseTech, "Supabase"],
-                    "Plateforme SaaS": [...baseTech, "Supabase"],
-                    "Marketplace": [...baseTech, "Supabase"],
-                    "Blog": [...baseTech, "Supabase"],
-                  };
-                  setEditing({ ...editing, type, technologies: techMap[type] || baseTech });
-                }}>
-                  {["Site vitrine", "Site vitrine professionnel", "Site e-commerce", "Application web", "Plateforme SaaS", "Marketplace", "Blog"].map((t) => (
-                    <option key={t} value={t}>{t}</option>
+                <select
+                  className={inputClass}
+                  value={editing.type || ""}
+                  onChange={(e) => {
+                    const type = e.target.value;
+                    setEditing({ ...editing, type, technologies: resolveTechnologies(type, null) });
+                  }}
+                >
+                  {[
+                    "Site vitrine",
+                    "Site vitrine personnalisé",
+                    "Site vitrine professionnel",
+                    "Site e-commerce",
+                    "Application web",
+                    "Plateforme SaaS",
+                    "Marketplace",
+                    "Blog",
+                  ].map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
                   ))}
                 </select>
               </div>

@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import AnimatedSection from "@/components/AnimatedSection";
 import DecorativeBlobs from "@/components/DecorativeBlobs";
+import { resolveTechnologies } from "@/lib/portfolioTech";
 
 const PortfolioDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,21 +69,19 @@ const PortfolioDetail = () => {
                 </div>
               )}
 
-              {project.technologies && project.technologies.length > 0 && (
-                <div className="mt-8">
-                  <h2 className="font-heading text-2xl font-bold mb-4">Technologies utilisées</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech: string) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-full border border-border bg-secondary/10 px-3 py-1.5 text-sm font-medium text-secondary transition-colors hover:bg-secondary/20"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+              <div className="mt-8">
+                <h2 className="font-heading text-2xl font-bold mb-4">Technologies utilisées</h2>
+                <div className="flex flex-wrap gap-2">
+                  {resolveTechnologies(project.type, project.technologies).map((tech: string) => (
+                    <span
+                      key={tech}
+                      className="inline-flex items-center rounded-full border border-border bg-secondary/10 px-3 py-1.5 text-sm font-medium text-secondary transition-colors hover:bg-secondary/20"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
-              )}
+              </div>
 
               <div className="mt-12 flex flex-col sm:flex-row gap-4">
                 <a
