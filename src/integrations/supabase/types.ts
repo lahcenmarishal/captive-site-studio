@@ -208,6 +208,7 @@ export type Database = {
           image_url: string | null
           name: string
           published: boolean
+          site_title: string
           type: string
         }
         Insert: {
@@ -218,6 +219,7 @@ export type Database = {
           image_url?: string | null
           name: string
           published?: boolean
+          site_title: string
           type: string
         }
         Update: {
@@ -228,6 +230,7 @@ export type Database = {
           image_url?: string | null
           name?: string
           published?: boolean
+          site_title?: string
           type?: string
         }
         Relationships: []

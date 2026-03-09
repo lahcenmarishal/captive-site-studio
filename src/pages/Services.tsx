@@ -102,18 +102,10 @@ const Services = () => (
           {services.map((s, i) => (
             <AnimatedSection key={s.title} delay={i * 0.1}>
               <div
-                className={`group relative bg-card/80 backdrop-blur-sm rounded-3xl border p-8 flex flex-col transition-all duration-300 hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 overflow-hidden h-full ${
-                  s.popular ? "border-primary shadow-[var(--shadow-elevated)]" : "border-border"
-                }`}
+                className="group relative bg-card/80 backdrop-blur-sm rounded-3xl border border-border p-8 flex flex-col transition-all duration-300 hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 overflow-hidden h-full"
               >
                 {/* Hover gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-
-                {s.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 badge-premium text-xs !py-1 !px-4">
-                    Populaire
-                  </span>
-                )}
 
                 <div className="relative">
                   <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
