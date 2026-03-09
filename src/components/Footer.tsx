@@ -35,17 +35,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="border-b border-[hsl(210_30%_20%)]">
-          <div className="max-w-3xl mx-auto px-4 py-10">
-            <h3 className="font-heading font-bold text-lg text-white text-center mb-6">Questions fréquentes</h3>
-            <div className="rounded-xl border border-[hsl(210_30%_20%)] bg-[hsl(210_35%_14%)] px-5">
-              {faqItems.map((item, i) => (
-                <FaqItem key={i} question={item.question} answer={item.answer} />
-              ))}
-            </div>
-          </div>
-        </div>
 
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
