@@ -68,15 +68,15 @@ const Portfolio = () => {
                     </div>
                     <div className="relative p-6">
                       <span className="text-xs font-medium text-secondary bg-secondary/10 px-2.5 py-1 rounded-full">{p.type}</span>
-                      <h3 className="font-heading font-bold text-lg mt-3">{p.site_title || p.name}</h3>
-                      <p className="text-muted-foreground text-sm mt-2 line-clamp-2">{p.name}</p>
+                      <h3 className="font-heading font-bold text-lg mt-3">{p.name}</h3>
+                      <p className="text-muted-foreground text-sm mt-2 line-clamp-2">{p.description}</p>
                       <div className="mt-4 flex items-center gap-3">
                         <Link to={`/portfolio/${p.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
                           En savoir plus <ArrowRight className="w-3.5 h-3.5" />
                         </Link>
-                        <Link to="/contact" className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground">
-                          Demander un devis
-                        </Link>
+                        <a href="/#demo-form" className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground">
+                          Créer un site similaire
+                        </a>
                       </div>
                     </div>
                   </div>

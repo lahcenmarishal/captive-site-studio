@@ -137,12 +137,12 @@ const Services = () => (
                     ))}
                   </ul>
 
-                  <Link
-                    to="/contact"
+                  <a
+                    href="/#demo-form"
                     className="mt-8 w-full flex items-center justify-center gap-2 font-semibold text-primary-foreground px-6 py-3.5 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:-translate-y-0.5"
                   >
                     Demander une démo gratuite <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </AnimatedSection>

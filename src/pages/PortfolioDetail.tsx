@@ -68,12 +68,12 @@ const PortfolioDetail = () => {
               )}
 
               <div className="mt-12 flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/contact"
+                <a
+                  href="/#demo-form"
                   className="inline-flex items-center justify-center gap-2 font-semibold text-primary-foreground px-8 py-3.5 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:-translate-y-0.5"
                 >
                   Créer un site similaire <ArrowRight className="w-4 h-4" />
-                </Link>
+                </a>
                 <Link
                   to="/portfolio"
                   className="inline-flex items-center justify-center gap-2 font-medium text-foreground px-8 py-3.5 rounded-xl border border-border hover:bg-muted transition-colors"
