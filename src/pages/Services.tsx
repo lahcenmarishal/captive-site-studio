@@ -12,6 +12,7 @@ const services = [
     subtitle: "Pour indépendants et petites entreprises",
     price: "490 €",
     delay: "3 à 5 jours",
+    projectType: "Site vitrine",
     features: [
       "Design professionnel",
       "Site responsive (mobile / tablette / ordinateur)",
@@ -28,6 +29,7 @@ const services = [
     subtitle: "Pour entreprises qui veulent gérer leur site",
     price: "890 €",
     delay: "5 à 10 jours",
+    projectType: "Site vitrine professionnel",
     features: [
       "Design personnalisé",
       "Site responsive optimisé conversion",
@@ -47,6 +49,7 @@ const services = [
     subtitle: "Pour vendre des produits en ligne",
     price: "1 490 €",
     delay: "10 à 20 jours",
+    projectType: "Site e-commerce",
     features: [
       "Design e-commerce professionnel",
       "Catalogue produits",
@@ -67,6 +70,7 @@ const services = [
     subtitle: "Pour startups et projets SaaS",
     price: "3 900 €",
     delay: "3 à 6 semaines",
+    projectType: "Application web / SaaS",
     features: [
       "Architecture application web",
       "Design UX/UI professionnel",
