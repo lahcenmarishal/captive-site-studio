@@ -147,22 +147,27 @@ const AdminPortfolio = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">Type de site *</label>
-                <select className={inputClass} value={editing.type || ""} onChange={(e) => {
-                  const type = e.target.value;
-                  const baseTech = ["React", "TypeScript", "Tailwind CSS"];
-                  const techMap: Record<string, string[]> = {
-                    "Site vitrine": baseTech,
-                    "Site vitrine professionnel": [...baseTech, "Supabase"],
-                    "Site e-commerce": [...baseTech, "Supabase"],
-                    "Application web": [...baseTech, "Supabase"],
-                    "Plateforme SaaS": [...baseTech, "Supabase"],
-                    "Marketplace": [...baseTech, "Supabase"],
-                    "Blog": [...baseTech, "Supabase"],
-                  };
-                  setEditing({ ...editing, type, technologies: techMap[type] || baseTech });
-                }}>
-                  {["Site vitrine", "Site vitrine professionnel", "Site e-commerce", "Application web", "Plateforme SaaS", "Marketplace", "Blog"].map((t) => (
-                    <option key={t} value={t}>{t}</option>
+                <select
+                  className={inputClass}
+                  value={editing.type || ""}
+                  onChange={(e) => {
+                    const type = e.target.value;
+                    setEditing({ ...editing, type, technologies: resolveTechnologies(type, null) });
+                  }}
+                >
+                  {[
+                    "Site vitrine",
+                    "Site vitrine personnalisé",
+                    "Site vitrine professionnel",
+                    "Site e-commerce",
+                    "Application web",
+                    "Plateforme SaaS",
+                    "Marketplace",
+                    "Blog",
+                  ].map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
                   ))}
                 </select>
               </div>
