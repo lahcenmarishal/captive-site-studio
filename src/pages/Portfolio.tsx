@@ -72,15 +72,16 @@ const Portfolio = () => {
                       <span className="text-xs font-medium text-secondary bg-secondary/10 px-2.5 py-1 rounded-full">{p.type}</span>
                       <h3 className="font-heading font-bold text-xl mt-3">{p.name}</h3>
                       <p className="text-muted-foreground text-xs mt-1">{p.site_title}</p>
-                      {p.technologies && p.technologies.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-3">
-                          {p.technologies.map((tech: string) => (
-                            <span key={tech} className="text-[10px] font-medium bg-muted text-muted-foreground px-2 py-0.5 rounded-full border border-border">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                      <div className="flex flex-wrap gap-1.5 mt-3">
+                        {resolveTechnologies(p.type, p.technologies).map((tech: string) => (
+                          <span
+                            key={tech}
+                            className="text-[10px] font-medium bg-muted text-muted-foreground px-2 py-0.5 rounded-full border border-border"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                       <div className="mt-4 flex items-center gap-3">
                         <Link to={`/portfolio/${p.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
                           En savoir plus <ArrowRight className="w-3.5 h-3.5" />

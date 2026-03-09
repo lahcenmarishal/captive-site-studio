@@ -118,8 +118,12 @@ const AdminPortfolio = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-heading text-xl font-bold">Portfolio</h2>
-        <button
-          onClick={() => { setEditing({ ...emptyProject, display_order: projects.length }); setIsNew(true); }}
+          <button
+            onClick={() => {
+              const type = "Site vitrine";
+              setEditing({ ...emptyProject, type, technologies: resolveTechnologies(type, null), display_order: projects.length });
+              setIsNew(true);
+            }}
           className="flex items-center gap-2 text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
         >
           <Plus className="w-4 h-4" /> Ajouter un projet
