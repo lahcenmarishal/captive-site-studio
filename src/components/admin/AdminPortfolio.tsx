@@ -112,6 +112,18 @@ const AdminPortfolio = () => {
     },
   });
 
+  const reorderMutation = useMutation({
+    mutationFn: async ({ id, newOrder, swapId, swapOrder }: { id: string; newOrder: number; swapId: string; swapOrder: number }) => {
+      const { error: e1 } = await supabase.from("portfolio_projects").update({ display_order: newOrder }).eq("id", id);
+      if (e1) throw e1;
+      const { error: e2 } = await supabase.from("portfolio_projects").update({ display_order: swapOrder }).eq("id", swapId);
+      if (e2) throw e2;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-portfolio"] });
+    },
+  });
+
   const inputClass = "w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50";
 
   return (
