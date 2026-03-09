@@ -69,6 +69,7 @@ const AdminPortfolio = () => {
         image_url: project.image_url || null,
         published: project.published ?? false,
         display_order: project.display_order ?? projects.length,
+        technologies: project.technologies || [],
       };
       if (project.id) {
         const { error } = await supabase.from("portfolio_projects").update(payload).eq("id", project.id);
