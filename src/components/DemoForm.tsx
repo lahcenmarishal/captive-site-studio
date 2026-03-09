@@ -15,6 +15,7 @@ const projectTypes = [
 ];
 
 const DemoForm = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     nom: "",
     telephone: "",
@@ -23,6 +24,14 @@ const DemoForm = () => {
     activite: "",
     message: "",
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const typeParam = params.get("type");
+    if (typeParam && projectTypes.includes(typeParam)) {
+      setFormData((prev) => ({ ...prev, activite: typeParam }));
+    }
+  }, [location.search]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
