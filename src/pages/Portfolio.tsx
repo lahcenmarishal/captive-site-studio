@@ -14,6 +14,7 @@ interface PortfolioProject {
   site_title: string;
   description: string;
   image_url: string | null;
+  technologies: string[] | null;
 }
 
 const Portfolio = () => {
