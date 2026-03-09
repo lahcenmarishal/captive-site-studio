@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { resolveTechnologies } from "@/lib/portfolioTech";
 import { Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X, Save, Loader2, ImageIcon, Upload } from "lucide-react";
 
 type Project = {
