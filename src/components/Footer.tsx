@@ -1,49 +1,5 @@
-import { Code2, ArrowRight, Mail, ChevronDown } from "lucide-react";
+import { Code2, ArrowRight, Mail } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-const faqItems = [
-  {
-    question: "Quels moyens de paiement acceptez-vous ?",
-    answer:
-      "Nous acceptons le paiement par Payoneer ainsi que par virement bancaire simple. Choisissez la méthode qui vous convient le mieux.",
-  },
-  {
-    question: "Les transactions sont-elles sécurisées ?",
-    answer:
-      "Oui, toutes nos transactions sont entièrement sécurisées. Nous utilisons des protocoles de sécurité fiables pour garantir la protection de vos données et de vos paiements.",
-  },
-  {
-    question: "Combien de temps prend la création d'un site ?",
-    answer:
-      "Le délai varie selon la complexité du projet. Un site vitrine est généralement livré en 3 à 7 jours, tandis qu'un projet plus complexe peut prendre 2 à 4 semaines.",
-  },
-  {
-    question: "Proposez-vous un accompagnement après la livraison ?",
-    answer:
-      "Oui, nous proposons un support technique après la livraison pour vous accompagner dans la prise en main de votre site et répondre à vos questions.",
-  },
-];
-
-const FaqItem = ({ question, answer }: { question: string; answer: string }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-b border-[hsl(210_30%_20%)] last:border-0">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-3 text-left text-sm font-medium text-white hover:text-secondary transition-colors"
-      >
-        {question}
-        <ChevronDown className={`w-4 h-4 shrink-0 ml-2 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
-      </button>
-      <div
-        className={`overflow-hidden transition-all duration-200 ${open ? "max-h-40 pb-3" : "max-h-0"}`}
-      >
-        <p className="text-sm text-[hsl(210_20%_65%)] leading-relaxed">{answer}</p>
-      </div>
-    </div>
-  );
-};
 
 const Footer = () => {
   const location = useLocation();
