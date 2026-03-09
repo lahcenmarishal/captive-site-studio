@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X, Save, Loader2, ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X, Save, Loader2, ImageIcon, Upload } from "lucide-react";
 
 type Project = {
   id: string;
   name: string;
   type: string;
+  site_title: string;
   description: string;
   image_url: string | null;
   published: boolean;
@@ -15,12 +16,14 @@ type Project = {
   created_at: string;
 };
 
-const emptyProject = { name: "", type: "Site vitrine", description: "", image_url: "", published: false };
+const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false };
 
 const AdminPortfolio = () => {
   const queryClient = useQueryClient();
   const [editing, setEditing] = useState<Partial<Project> | null>(null);
   const [isNew, setIsNew] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: projects = [], isLoading } = useQuery({
     queryKey: ["admin-portfolio"],
@@ -34,11 +37,33 @@ const AdminPortfolio = () => {
     },
   });
 
+  const handleImageUpload = async (file: File) => {
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error } = await supabase.storage
+        .from("portfolio-images")
+        .upload(fileName, file, { upsert: true });
+      if (error) throw error;
+      const { data: urlData } = supabase.storage
+        .from("portfolio-images")
+        .getPublicUrl(fileName);
+      setEditing((prev) => prev ? { ...prev, image_url: urlData.publicUrl } : prev);
+      toast.success("Image uploadée");
+    } catch {
+      toast.error("Erreur lors de l'upload");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const saveMutation = useMutation({
     mutationFn: async (project: Partial<Project>) => {
       const payload = {
         name: project.name!,
         type: project.type!,
+        site_title: project.site_title || project.name!,
         description: project.description || "",
         image_url: project.image_url || null,
         published: project.published ?? false,
@@ -101,7 +126,7 @@ const AdminPortfolio = () => {
       {/* Edit modal */}
       {editing && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card rounded-2xl border border-border p-6 w-full max-w-lg shadow-2xl">
+          <div className="bg-card rounded-2xl border border-border p-6 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-5">
               <h3 className="font-heading font-bold text-lg">{isNew ? "Nouveau projet" : "Modifier le projet"}</h3>
               <button onClick={() => { setEditing(null); setIsNew(false); }} className="text-muted-foreground hover:text-foreground">
@@ -114,6 +139,10 @@ const AdminPortfolio = () => {
                 <input className={inputClass} value={editing.name || ""} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Mon Super Projet" />
               </div>
               <div>
+                <label className="block text-sm font-medium mb-1">Titre du site *</label>
+                <input className={inputClass} value={editing.site_title || ""} onChange={(e) => setEditing({ ...editing, site_title: e.target.value })} placeholder="Titre affiché sur la page portfolio" />
+              </div>
+              <div>
                 <label className="block text-sm font-medium mb-1">Type de site *</label>
                 <select className={inputClass} value={editing.type || ""} onChange={(e) => setEditing({ ...editing, type: e.target.value })}>
                   {["Site vitrine", "Site e-commerce", "Application web", "Plateforme SaaS", "Marketplace", "Blog"].map((t) => (
@@ -123,11 +152,36 @@ const AdminPortfolio = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">Description</label>
-                <textarea className={inputClass + " min-h-[80px] resize-y"} value={editing.description || ""} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description courte du projet..." />
+                <textarea className={inputClass + " min-h-[80px] resize-y"} value={editing.description || ""} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description détaillée du projet..." />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">URL de l'image</label>
-                <input className={inputClass} value={editing.image_url || ""} onChange={(e) => setEditing({ ...editing, image_url: e.target.value })} placeholder="https://..." />
+                <label className="block text-sm font-medium mb-1">Image du projet</label>
+                {editing.image_url && (
+                  <div className="mb-2 rounded-lg overflow-hidden border border-border">
+                    <img src={editing.image_url} alt="Aperçu" className="w-full h-40 object-cover" />
+                  </div>
+                )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handleImageUpload(file);
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="flex items-center gap-2 text-sm font-medium bg-muted px-4 py-2 rounded-lg hover:bg-muted/80 transition-colors disabled:opacity-50"
+                >
+                  {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                  {uploading ? "Upload en cours..." : "Uploader une image"}
+                </button>
+                <p className="text-xs text-muted-foreground mt-1">Ou entrez une URL :</p>
+                <input className={inputClass + " mt-1"} value={editing.image_url || ""} onChange={(e) => setEditing({ ...editing, image_url: e.target.value })} placeholder="https://..." />
               </div>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
                 <input type="checkbox" checked={editing.published ?? false} onChange={(e) => setEditing({ ...editing, published: e.target.checked })} className="rounded" />
@@ -171,7 +225,7 @@ const AdminPortfolio = () => {
                   <h4 className="font-medium text-sm truncate">{p.name}</h4>
                   <span className="text-[10px] bg-muted px-2 py-0.5 rounded-full text-muted-foreground shrink-0">{p.type}</span>
                 </div>
-                <p className="text-xs text-muted-foreground truncate mt-0.5">{p.description}</p>
+                <p className="text-xs text-muted-foreground truncate mt-0.5">{p.site_title}</p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <button

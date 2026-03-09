@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
+import PortfolioDetail from "./pages/PortfolioDetail";
 import Contact from "./pages/Contact";
 import MentionsLegales from "./pages/MentionsLegales";
 import NotFound from "./pages/NotFound";
