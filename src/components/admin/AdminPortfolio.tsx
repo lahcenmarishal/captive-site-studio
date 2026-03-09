@@ -17,7 +17,7 @@ type Project = {
   technologies: string[];
 };
 
-const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false };
+const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false, technologies: [] };
 
 const AdminPortfolio = () => {
   const queryClient = useQueryClient();
