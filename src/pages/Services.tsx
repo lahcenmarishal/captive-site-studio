@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Check, ArrowRight, Globe, ShoppingCart, Code2, Layers } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import DecorativeBlobs from "@/components/DecorativeBlobs";
@@ -30,6 +31,7 @@ const services = [
     price: "890 €",
     delay: "5 à 10 jours",
     projectType: "Site vitrine professionnel",
+    popular: true,
     features: [
       "Design personnalisé",
       "Site responsive optimisé conversion",
@@ -110,6 +112,12 @@ const Services = () => (
               >
                 {/* Hover gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+
+                {s.popular && (
+                  <Badge className="absolute top-4 right-4 bg-gradient-to-r from-primary to-secondary text-primary-foreground border-0 px-3 py-1 text-xs font-semibold shadow-md">
+                    ⭐ Populaire
+                  </Badge>
+                )}
 
                 <div className="relative">
                   <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
