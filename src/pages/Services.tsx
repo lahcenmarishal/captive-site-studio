@@ -30,6 +30,7 @@ const services = [
     price: "890 €",
     delay: "5 à 10 jours",
     projectType: "Site vitrine professionnel",
+    popular: true,
     features: [
       "Design personnalisé",
       "Site responsive optimisé conversion",
