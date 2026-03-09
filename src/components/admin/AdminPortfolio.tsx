@@ -16,6 +16,7 @@ type Project = {
   display_order: number;
   created_at: string;
   technologies: string[];
+  website_url: string | null;
 };
 
 const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false, technologies: resolveTechnologies("Site vitrine", null) };
