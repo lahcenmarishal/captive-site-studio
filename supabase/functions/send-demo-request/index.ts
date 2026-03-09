@@ -42,6 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
       telephone: data.telephone,
       email: data.email || null,
       activite: data.activite,
+      entreprise: data.entreprise || "N/A",
     });
 
     if (dbError) {
