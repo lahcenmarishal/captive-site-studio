@@ -155,6 +155,17 @@ const AdminPortfolio = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">Description</label>
                 <textarea className={inputClass + " min-h-[80px] resize-y"} value={editing.description || ""} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description détaillée du projet..." />
+                <p className="text-xs text-muted-foreground mt-1">Utilisez Entrée pour créer des retours à la ligne</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Technologies utilisées</label>
+                <input 
+                  className={inputClass} 
+                  value={(editing.technologies || []).join(", ")} 
+                  onChange={(e) => setEditing({ ...editing, technologies: e.target.value.split(",").map(t => t.trim()).filter(Boolean) })} 
+                  placeholder="React, TypeScript, Tailwind CSS, Supabase..." 
+                />
+                <p className="text-xs text-muted-foreground mt-1">Séparez les technologies par des virgules</p>
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">Image du projet</label>

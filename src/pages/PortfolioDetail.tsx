@@ -62,8 +62,25 @@ const PortfolioDetail = () => {
               )}
 
               {project.description && (
-                <div className="mt-8 prose prose-neutral max-w-none">
-                  <p className="text-foreground/80 text-lg leading-relaxed">{project.description}</p>
+                <div className="mt-8">
+                  <h2 className="font-heading text-2xl font-bold mb-4">Description</h2>
+                  <p className="text-foreground/80 text-lg leading-relaxed whitespace-pre-wrap">{project.description}</p>
+                </div>
+              )}
+
+              {project.technologies && project.technologies.length > 0 && (
+                <div className="mt-8">
+                  <h2 className="font-heading text-2xl font-bold mb-4">Technologies utilisées</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech: string) => (
+                      <span
+                        key={tech}
+                        className="inline-flex items-center rounded-full border border-border bg-secondary/10 px-3 py-1.5 text-sm font-medium text-secondary transition-colors hover:bg-secondary/20"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
 
