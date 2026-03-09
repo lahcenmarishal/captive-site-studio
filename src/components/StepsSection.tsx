@@ -5,7 +5,7 @@ const steps = [
   { icon: ClipboardList, title: "Remplissez", subtitle: "le formulaire en 2 min", emoji: "📋" },
   { icon: Zap, title: "On vous contacte", subtitle: "sous 24h max", emoji: "⚡" },
   { icon: Monitor, title: "Démo créée", subtitle: "100% personnalisée", emoji: "🎨" },
-  { icon: ShieldCheck, title: "Validation", subtitle: "et acompte 30%", emoji: "✅" },
+  { icon: ShieldCheck, title: "Validation", subtitle: "et acompte 50%", emoji: "✅" },
   { icon: Truck, title: "Livraison", subtitle: "site prêt à l'emploi", emoji: "🚀" },
 ];
 
