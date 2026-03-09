@@ -69,6 +69,7 @@ const AdminPortfolio = () => {
         site_title: project.site_title || project.name!,
         description: project.description || "",
         image_url: project.image_url || null,
+        website_url: project.website_url || null,
         published: project.published ?? false,
         display_order: project.display_order ?? projects.length,
         technologies: project.technologies || [],
