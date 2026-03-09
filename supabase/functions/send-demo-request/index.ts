@@ -15,6 +15,8 @@ interface DemoRequest {
   telephone: string;
   email: string;
   activite: string;
+  entreprise?: string;
+  message?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
