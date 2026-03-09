@@ -33,6 +33,7 @@ const Index = () => {
       <DemoForm />
       <StepsSection />
       <FeaturesSection />
+      <FaqSection />
       <Footer />
     </div>
   );
