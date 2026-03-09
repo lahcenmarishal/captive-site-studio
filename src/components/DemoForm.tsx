@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, Lock, Sparkles, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import AnimatedSection from "./AnimatedSection";
 import DecorativeBlobs from "./DecorativeBlobs";
+import { useLocation } from "react-router-dom";
 
 const projectTypes = [
   "Site vitrine",
