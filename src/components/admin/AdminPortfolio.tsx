@@ -258,9 +258,34 @@ const AdminPortfolio = () => {
         </div>
       ) : (
         <div className="space-y-3">
-          {projects.map((p) => (
+          {projects.map((p, index) => (
             <div key={p.id} className="flex items-center gap-4 bg-card rounded-xl border border-border p-4 hover:shadow-sm transition-shadow">
-              <GripVertical className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+              <div className="flex flex-col gap-0.5 shrink-0">
+                <button
+                  onClick={() => {
+                    if (index === 0) return;
+                    const prev = projects[index - 1];
+                    reorderMutation.mutate({ id: p.id, newOrder: prev.display_order, swapId: prev.id, swapOrder: p.display_order });
+                  }}
+                  disabled={index === 0 || reorderMutation.isPending}
+                  className="p-1 rounded text-muted-foreground hover:bg-muted transition-colors disabled:opacity-20"
+                  title="Monter"
+                >
+                  <ArrowUp className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => {
+                    if (index === projects.length - 1) return;
+                    const next = projects[index + 1];
+                    reorderMutation.mutate({ id: p.id, newOrder: next.display_order, swapId: next.id, swapOrder: p.display_order });
+                  }}
+                  disabled={index === projects.length - 1 || reorderMutation.isPending}
+                  className="p-1 rounded text-muted-foreground hover:bg-muted transition-colors disabled:opacity-20"
+                  title="Descendre"
+                >
+                  <ArrowDown className="w-3.5 h-3.5" />
+                </button>
+              </div>
               <div className="w-16 h-12 rounded-lg bg-muted overflow-hidden shrink-0">
                 {p.image_url ? (
                   <img src={p.image_url} alt={p.name} className="w-full h-full object-cover" />
