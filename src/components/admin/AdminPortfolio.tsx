@@ -147,7 +147,7 @@ const AdminPortfolio = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">Type de site *</label>
                 <select className={inputClass} value={editing.type || ""} onChange={(e) => setEditing({ ...editing, type: e.target.value })}>
-                  {["Site vitrine", "Site e-commerce", "Application web", "Plateforme SaaS", "Marketplace", "Blog"].map((t) => (
+                  {["Site vitrine", "Site vitrine professionnel", "Site e-commerce", "Application web", "Plateforme SaaS", "Marketplace", "Blog"].map((t) => (
                     <option key={t} value={t}>{t}</option>
                   ))}
                 </select>
