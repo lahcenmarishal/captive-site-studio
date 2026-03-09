@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Check, ArrowRight, Globe, ShoppingCart, Code2, Layers } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import DecorativeBlobs from "@/components/DecorativeBlobs";
