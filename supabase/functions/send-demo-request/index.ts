@@ -15,6 +15,8 @@ interface DemoRequest {
   telephone: string;
   email: string;
   activite: string;
+  entreprise?: string;
+  message?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -40,6 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
       telephone: data.telephone,
       email: data.email || null,
       activite: data.activite,
+      entreprise: data.entreprise || "N/A",
     });
 
     if (dbError) {
@@ -72,6 +75,14 @@ const handler = async (req: Request): Promise<Response> => {
               <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Activité</td>
               <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.activite}</td>
             </tr>
+            ${data.entreprise ? `<tr style="background: #f8fafc;">
+              <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Entreprise</td>
+              <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.entreprise}</td>
+            </tr>` : ""}
+            ${data.message ? `<tr>
+              <td style="padding: 12px; font-weight: bold; border: 1px solid #e2e8f0;">Message</td>
+              <td style="padding: 12px; border: 1px solid #e2e8f0;">${data.message}</td>
+            </tr>` : ""}
           </table>
 
           <p style="margin-top: 20px; color: #64748b; font-size: 12px;">Email envoyé automatiquement depuis prodevelo.com</p>
