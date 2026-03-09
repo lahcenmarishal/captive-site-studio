@@ -211,6 +211,7 @@ export type Database = {
           site_title: string
           technologies: string[] | null
           type: string
+          website_url: string | null
         }
         Insert: {
           created_at?: string
@@ -223,6 +224,7 @@ export type Database = {
           site_title: string
           technologies?: string[] | null
           type: string
+          website_url?: string | null
         }
         Update: {
           created_at?: string
@@ -235,6 +237,7 @@ export type Database = {
           site_title?: string
           technologies?: string[] | null
           type?: string
+          website_url?: string | null
         }
         Relationships: []
       }

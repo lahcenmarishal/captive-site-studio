@@ -50,7 +50,13 @@ const PortfolioDetail = () => {
               <h1 className="font-heading text-3xl md:text-4xl font-bold mt-4">
                 {project.site_title || project.name}
               </h1>
-              <p className="text-muted-foreground mt-2 text-lg">{project.name}</p>
+              {project.website_url ? (
+                <a href={project.website_url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline mt-2 text-lg inline-flex items-center gap-1">
+                  {project.name} <ArrowRight className="w-4 h-4" />
+                </a>
+              ) : (
+                <p className="text-muted-foreground mt-2 text-lg">{project.name}</p>
+              )}
 
               {project.image_url && (
                 <div className="mt-8 rounded-2xl overflow-hidden border border-border shadow-lg">

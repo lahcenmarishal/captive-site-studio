@@ -16,6 +16,7 @@ interface PortfolioProject {
   description: string;
   image_url: string | null;
   technologies: string[] | null;
+  website_url: string | null;
 }
 
 const Portfolio = () => {
@@ -70,9 +71,15 @@ const Portfolio = () => {
                     </Link>
                     <div className="relative p-6">
                       <span className="text-xs font-medium text-secondary bg-secondary/10 px-2.5 py-1 rounded-full">{p.type}</span>
-                      <Link to={`/portfolio/${p.id}`} className="block">
-                        <h3 className="font-heading font-bold text-xl mt-3 hover:text-primary transition-colors">{p.name}</h3>
-                      </Link>
+                      {p.website_url ? (
+                        <a href={p.website_url} target="_blank" rel="noopener noreferrer" className="block">
+                          <h3 className="font-heading font-bold text-xl mt-3 hover:text-primary transition-colors">{p.name}</h3>
+                        </a>
+                      ) : (
+                        <Link to={`/portfolio/${p.id}`} className="block">
+                          <h3 className="font-heading font-bold text-xl mt-3 hover:text-primary transition-colors">{p.name}</h3>
+                        </Link>
+                      )}
                       <p className="text-muted-foreground text-xs mt-1">{p.site_title}</p>
                       <div className="mt-4 flex items-center gap-3">
                         <Link to={`/portfolio/${p.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">

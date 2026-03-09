@@ -1,0 +1,1 @@
+ALTER TABLE public.portfolio_projects ADD COLUMN website_url TEXT DEFAULT NULL;

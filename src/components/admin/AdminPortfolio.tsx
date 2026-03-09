@@ -16,9 +16,10 @@ type Project = {
   display_order: number;
   created_at: string;
   technologies: string[];
+  website_url: string | null;
 };
 
-const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", published: false, technologies: resolveTechnologies("Site vitrine", null) };
+const emptyProject = { name: "", type: "Site vitrine", site_title: "", description: "", image_url: "", website_url: "", published: false, technologies: resolveTechnologies("Site vitrine", null) };
 
 const AdminPortfolio = () => {
   const queryClient = useQueryClient();
@@ -68,6 +69,7 @@ const AdminPortfolio = () => {
         site_title: project.site_title || project.name!,
         description: project.description || "",
         image_url: project.image_url || null,
+        website_url: project.website_url || null,
         published: project.published ?? false,
         display_order: project.display_order ?? projects.length,
         technologies: project.technologies || [],
@@ -156,6 +158,11 @@ const AdminPortfolio = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">Nom du projet *</label>
                 <input className={inputClass} value={editing.name || ""} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Mon Super Projet" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">URL du site</label>
+                <input className={inputClass} value={editing.website_url || ""} onChange={(e) => setEditing({ ...editing, website_url: e.target.value })} placeholder="https://www.example.com" />
+                <p className="text-xs text-muted-foreground mt-1">Le nom du projet deviendra un lien cliquable vers cette URL</p>
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">Titre du site *</label>
