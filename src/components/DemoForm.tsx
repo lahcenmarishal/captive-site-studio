@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, Lock, Sparkles, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import AnimatedSection from "./AnimatedSection";
 import DecorativeBlobs from "./DecorativeBlobs";
+import { useLocation } from "react-router-dom";
 
 const projectTypes = [
   "Site vitrine",
@@ -14,6 +15,7 @@ const projectTypes = [
 ];
 
 const DemoForm = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     nom: "",
     telephone: "",
@@ -22,6 +24,14 @@ const DemoForm = () => {
     activite: "",
     message: "",
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const typeParam = params.get("type");
+    if (typeParam && projectTypes.includes(typeParam)) {
+      setFormData((prev) => ({ ...prev, activite: typeParam }));
+    }
+  }, [location.search]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

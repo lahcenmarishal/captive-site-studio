@@ -12,6 +12,7 @@ const services = [
     subtitle: "Pour indépendants et petites entreprises",
     price: "490 €",
     delay: "3 à 5 jours",
+    projectType: "Site vitrine",
     features: [
       "Design professionnel",
       "Site responsive (mobile / tablette / ordinateur)",
@@ -28,6 +29,7 @@ const services = [
     subtitle: "Pour entreprises qui veulent gérer leur site",
     price: "890 €",
     delay: "5 à 10 jours",
+    projectType: "Site vitrine professionnel",
     features: [
       "Design personnalisé",
       "Site responsive optimisé conversion",
@@ -47,6 +49,7 @@ const services = [
     subtitle: "Pour vendre des produits en ligne",
     price: "1 490 €",
     delay: "10 à 20 jours",
+    projectType: "Site e-commerce",
     features: [
       "Design e-commerce professionnel",
       "Catalogue produits",
@@ -67,6 +70,7 @@ const services = [
     subtitle: "Pour startups et projets SaaS",
     price: "3 900 €",
     delay: "3 à 6 semaines",
+    projectType: "Application web / SaaS",
     features: [
       "Architecture application web",
       "Design UX/UI professionnel",
@@ -138,7 +142,7 @@ const Services = () => (
                   </ul>
 
                   <a
-                    href="/#demo-form"
+                    href={`/#demo-form?type=${encodeURIComponent(s.projectType)}`}
                     className="mt-8 w-full flex items-center justify-center gap-2 font-semibold text-primary-foreground px-6 py-3.5 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:-translate-y-0.5"
                   >
                     Demander une démo gratuite <ArrowRight className="w-4 h-4" />
