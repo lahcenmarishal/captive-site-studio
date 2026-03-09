@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { resolveTechnologies } from "@/lib/portfolioTech";
-import { Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X, Save, Loader2, ImageIcon, Upload } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X, Save, Loader2, ImageIcon, Upload, ArrowUp, ArrowDown } from "lucide-react";
 
 type Project = {
   id: string;
@@ -109,6 +109,18 @@ const AdminPortfolio = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-portfolio"] });
       toast.success("Statut mis à jour");
+    },
+  });
+
+  const reorderMutation = useMutation({
+    mutationFn: async ({ id, newOrder, swapId, swapOrder }: { id: string; newOrder: number; swapId: string; swapOrder: number }) => {
+      const { error: e1 } = await supabase.from("portfolio_projects").update({ display_order: newOrder }).eq("id", id);
+      if (e1) throw e1;
+      const { error: e2 } = await supabase.from("portfolio_projects").update({ display_order: swapOrder }).eq("id", swapId);
+      if (e2) throw e2;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-portfolio"] });
     },
   });
 
@@ -246,9 +258,34 @@ const AdminPortfolio = () => {
         </div>
       ) : (
         <div className="space-y-3">
-          {projects.map((p) => (
+          {projects.map((p, index) => (
             <div key={p.id} className="flex items-center gap-4 bg-card rounded-xl border border-border p-4 hover:shadow-sm transition-shadow">
-              <GripVertical className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+              <div className="flex flex-col gap-0.5 shrink-0">
+                <button
+                  onClick={() => {
+                    if (index === 0) return;
+                    const prev = projects[index - 1];
+                    reorderMutation.mutate({ id: p.id, newOrder: prev.display_order, swapId: prev.id, swapOrder: p.display_order });
+                  }}
+                  disabled={index === 0 || reorderMutation.isPending}
+                  className="p-1 rounded text-muted-foreground hover:bg-muted transition-colors disabled:opacity-20"
+                  title="Monter"
+                >
+                  <ArrowUp className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => {
+                    if (index === projects.length - 1) return;
+                    const next = projects[index + 1];
+                    reorderMutation.mutate({ id: p.id, newOrder: next.display_order, swapId: next.id, swapOrder: p.display_order });
+                  }}
+                  disabled={index === projects.length - 1 || reorderMutation.isPending}
+                  className="p-1 rounded text-muted-foreground hover:bg-muted transition-colors disabled:opacity-20"
+                  title="Descendre"
+                >
+                  <ArrowDown className="w-3.5 h-3.5" />
+                </button>
+              </div>
               <div className="w-16 h-12 rounded-lg bg-muted overflow-hidden shrink-0">
                 {p.image_url ? (
                   <img src={p.image_url} alt={p.name} className="w-full h-full object-cover" />

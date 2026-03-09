@@ -1,5 +1,5 @@
 export const getDefaultTechnologies = (type?: string | null): string[] => {
-  const base = ["React", "TypeScript", "Tailwind CSS"];
+  const base = ["React", "TypeScript", "Tailwind CSS", "Node.js"];
   const withBackend = [...base, "Supabase"];
 
   switch (type) {

@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import AnimatedSection from "@/components/AnimatedSection";
 import DecorativeBlobs from "@/components/DecorativeBlobs";
-import { resolveTechnologies } from "@/lib/portfolioTech";
+
 
 interface PortfolioProject {
   id: string;
@@ -59,7 +59,7 @@ const Portfolio = () => {
                 <AnimatedSection key={p.id} delay={i * 0.08}>
                   <div className="group relative bg-card/80 backdrop-blur-sm rounded-2xl border border-border overflow-hidden hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 transition-all duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-                    <div className="aspect-video bg-muted overflow-hidden">
+                    <Link to={`/portfolio/${p.id}`} className="block aspect-video bg-muted overflow-hidden cursor-pointer">
                       {p.image_url ? (
                         <img src={p.image_url} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       ) : (
@@ -67,21 +67,13 @@ const Portfolio = () => {
                           <FolderOpen className="w-12 h-12" />
                         </div>
                       )}
-                    </div>
+                    </Link>
                     <div className="relative p-6">
                       <span className="text-xs font-medium text-secondary bg-secondary/10 px-2.5 py-1 rounded-full">{p.type}</span>
-                      <h3 className="font-heading font-bold text-xl mt-3">{p.name}</h3>
+                      <Link to={`/portfolio/${p.id}`} className="block">
+                        <h3 className="font-heading font-bold text-xl mt-3 hover:text-primary transition-colors">{p.name}</h3>
+                      </Link>
                       <p className="text-muted-foreground text-xs mt-1">{p.site_title}</p>
-                      <div className="flex flex-wrap gap-1.5 mt-3">
-                        {resolveTechnologies(p.type, p.technologies).map((tech: string) => (
-                          <span
-                            key={tech}
-                            className="text-[10px] font-medium bg-muted text-muted-foreground px-2 py-0.5 rounded-full border border-border"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
                       <div className="mt-4 flex items-center gap-3">
                         <Link to={`/portfolio/${p.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
                           En savoir plus <ArrowRight className="w-3.5 h-3.5" />
