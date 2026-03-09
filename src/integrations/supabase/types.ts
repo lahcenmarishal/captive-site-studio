@@ -209,6 +209,7 @@ export type Database = {
           name: string
           published: boolean
           site_title: string
+          technologies: string[] | null
           type: string
         }
         Insert: {
@@ -220,6 +221,7 @@ export type Database = {
           name: string
           published?: boolean
           site_title: string
+          technologies?: string[] | null
           type: string
         }
         Update: {
@@ -231,6 +233,7 @@ export type Database = {
           name?: string
           published?: boolean
           site_title?: string
+          technologies?: string[] | null
           type?: string
         }
         Relationships: []
