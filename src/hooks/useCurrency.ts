@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 type Currency = "EUR" | "MAD";
 
-const RATE_EUR_TO_MAD = 11;
+const RATE_EUR_TO_MAD = 10;
 
 interface CurrencyInfo {
   currency: Currency;
