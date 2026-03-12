@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import DecorativeBlobs from "@/components/DecorativeBlobs";
+import { useCurrency } from "@/hooks/useCurrency";
 
 const services = [
   {
