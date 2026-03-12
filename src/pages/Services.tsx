@@ -129,7 +129,7 @@ const Services = () => (
                   <p className="text-muted-foreground text-sm mt-1">{s.subtitle}</p>
 
                   <div className="mt-6 mb-6">
-                    <span className="font-heading text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">À partir de {s.price}</span>
+                    <span className="font-heading text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">À partir de {isLoading ? "..." : format(s.priceEur)}</span>
                     <span className="text-muted-foreground text-sm ml-2">· {s.delay}</span>
                   </div>
 
