@@ -191,7 +191,7 @@ const AdminDashboard = () => {
 
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-heading text-xl font-bold">Pipeline Commercial</h2>
-              <button onClick={fetchRequests} className="flex items-center gap-2 text-sm text-primary hover:underline">
+              <button onClick={() => fetchRequests()} className="flex items-center gap-2 text-sm text-primary hover:underline">
                 <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} /> Actualiser
               </button>
             </div>
