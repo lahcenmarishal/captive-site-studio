@@ -48,19 +48,50 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) navigate("/admin/login");
-      else fetchRequests();
+      if (!session) {
+        navigate("/admin/login");
+        return;
+      }
+      fetchRequests();
+
+      channel = supabase
+        .channel("demo_requests_realtime")
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "demo_requests" },
+          (payload) => {
+            console.log("New request received:", payload);
+            setRequests((prev) => [payload.new as DemoRequest, ...prev]);
+            toast.info("Nouvelle demande reçue !");
+          }
+        )
+        .on(
+          "postgres_changes",
+          { event: "UPDATE", schema: "public", table: "demo_requests" },
+          (payload) => {
+            setRequests((prev) =>
+              prev.map((r) => (r.id === (payload.new as DemoRequest).id ? (payload.new as DemoRequest) : r))
+            );
+          }
+        )
+        .on(
+          "postgres_changes",
+          { event: "DELETE", schema: "public", table: "demo_requests" },
+          (payload) => {
+            setRequests((prev) => prev.filter((r) => r.id !== (payload.old as { id: string }).id));
+          }
+        )
+        .subscribe((status) => {
+          console.log("Realtime subscription status:", status);
+        });
     });
 
-    const channel = supabase
-      .channel("demo_requests_changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "demo_requests" }, () => {
-        fetchRequests();
-      })
-      .subscribe();
-
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      if (channel) supabase.removeChannel(channel);
+    };
   }, []);
 
   const handleLogout = async () => {
