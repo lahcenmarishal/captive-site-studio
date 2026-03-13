@@ -31,8 +31,9 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState<"pipeline" | "portfolio">("pipeline");
   const navigate = useNavigate();
 
-  const fetchRequests = async () => {
-    setLoading(true);
+  const fetchRequests = async (showLoader = true) => {
+    if (showLoader) setLoading(true);
+
     const { data, error } = await supabase
       .from("demo_requests")
       .select("*")
@@ -44,7 +45,8 @@ const AdminDashboard = () => {
     } else {
       setRequests(data || []);
     }
-    setLoading(false);
+
+    if (showLoader) setLoading(false);
   };
 
   useEffect(() => {
