@@ -31,8 +31,9 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState<"pipeline" | "portfolio">("pipeline");
   const navigate = useNavigate();
 
-  const fetchRequests = async () => {
-    setLoading(true);
+  const fetchRequests = async (showLoader = true) => {
+    if (showLoader) setLoading(true);
+
     const { data, error } = await supabase
       .from("demo_requests")
       .select("*")
@@ -44,18 +45,33 @@ const AdminDashboard = () => {
     } else {
       setRequests(data || []);
     }
-    setLoading(false);
+
+    if (showLoader) setLoading(false);
   };
 
   useEffect(() => {
     let channel: ReturnType<typeof supabase.channel> | null = null;
+    let pollInterval: number | null = null;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        fetchRequests(false);
+      }
+    };
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session) {
         navigate("/admin/login");
         return;
       }
+
       fetchRequests();
+
+      pollInterval = window.setInterval(() => {
+        fetchRequests(false);
+      }, 10000);
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
 
       channel = supabase
         .channel("demo_requests_realtime")
@@ -63,7 +79,6 @@ const AdminDashboard = () => {
           "postgres_changes",
           { event: "INSERT", schema: "public", table: "demo_requests" },
           (payload) => {
-            console.log("New request received:", payload);
             setRequests((prev) => [payload.new as DemoRequest, ...prev]);
             toast.info("Nouvelle demande reçue !");
           }
@@ -84,15 +99,15 @@ const AdminDashboard = () => {
             setRequests((prev) => prev.filter((r) => r.id !== (payload.old as { id: string }).id));
           }
         )
-        .subscribe((status) => {
-          console.log("Realtime subscription status:", status);
-        });
+        .subscribe();
     });
 
     return () => {
       if (channel) supabase.removeChannel(channel);
+      if (pollInterval) window.clearInterval(pollInterval);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [navigate]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -176,7 +191,7 @@ const AdminDashboard = () => {
 
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-heading text-xl font-bold">Pipeline Commercial</h2>
-              <button onClick={fetchRequests} className="flex items-center gap-2 text-sm text-primary hover:underline">
+              <button onClick={() => fetchRequests()} className="flex items-center gap-2 text-sm text-primary hover:underline">
                 <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} /> Actualiser
               </button>
             </div>

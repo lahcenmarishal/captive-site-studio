@@ -37,7 +37,7 @@ const handler = async (req: Request): Promise<Response> => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const { error: dbError } = await supabaseAdmin.from("demo_requests").insert({
+    const insertPayload = {
       nom: data.nom,
       telephone: data.telephone,
       email: data.email || null,
@@ -45,10 +45,17 @@ const handler = async (req: Request): Promise<Response> => {
       entreprise: data.entreprise || "N/A",
       timeline: "Non spécifié",
       service: data.activite || "Non spécifié",
-    });
+    };
+
+    const { data: insertedRequest, error: dbError } = await supabaseAdmin
+      .from("demo_requests")
+      .insert(insertPayload)
+      .select("id")
+      .single();
 
     if (dbError) {
       console.error("DB insert error:", dbError);
+      throw new Error("Impossible d'enregistrer la demande");
     }
 
     // Send email
@@ -92,7 +99,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Demo request email sent:", emailResponse);
+    console.log("Demo request stored and email sent:", { requestId: insertedRequest.id, emailResponse });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
