@@ -99,7 +99,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Demo request email sent:", emailResponse);
+    console.log("Demo request stored and email sent:", { requestId: insertedRequest.id, emailResponse });
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
