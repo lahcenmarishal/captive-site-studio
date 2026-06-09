@@ -29,7 +29,7 @@ type DemoRequest = {
 const AdminDashboard = () => {
   const [requests, setRequests] = useState<DemoRequest[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"pipeline" | "portfolio">("pipeline");
+  const [activeTab, setActiveTab] = useState<"pipeline" | "portfolio" | "catalogue">("pipeline");
   const navigate = useNavigate();
 
   const fetchRequests = async (showLoader = true) => {
@@ -125,6 +125,7 @@ const AdminDashboard = () => {
   const tabs = [
     { id: "pipeline" as const, label: "Pipeline", icon: BarChart3 },
     { id: "portfolio" as const, label: "Portfolio", icon: FolderOpen },
+    { id: "catalogue" as const, label: "Catalogue", icon: ShoppingBag },
   ];
 
   return (
