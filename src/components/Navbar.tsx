@@ -1,6 +1,7 @@
-import { Code2, Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const navLinks = [
   { to: "/", label: "Accueil" },
@@ -9,6 +10,28 @@ const navLinks = [
   { to: "/catalogue", label: "Catalogue" },
   { to: "/contact", label: "Contact" },
 ];
+
+const CurrencyToggle = () => {
+  const { currency, setCurrency } = useCurrency();
+  return (
+    <div className="inline-flex items-center rounded-full border border-border bg-card/60 backdrop-blur-md p-0.5 text-xs font-semibold">
+      {(["MAD", "EUR"] as const).map((c) => (
+        <button
+          key={c}
+          onClick={() => setCurrency(c)}
+          className={`px-3 py-1 rounded-full transition-all ${
+            currency === c
+              ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-[0_4px_12px_-2px_hsl(320_90%_50%/0.5)]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+          aria-label={`Afficher en ${c === "MAD" ? "DH" : "Euro"}`}
+        >
+          {c === "MAD" ? "DH" : "€"}
+        </button>
+      ))}
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -23,51 +46,64 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-xl border-b border-border/60">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Code2 className="w-5 h-5 text-primary-foreground" />
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center shadow-[0_8px_24px_-6px_hsl(320_90%_50%/0.6)] group-hover:scale-105 transition-transform">
+            <span className="text-primary-foreground font-heading font-bold text-base">P</span>
           </div>
-          <span className="font-heading font-bold text-lg">
-            Pro<span className="text-secondary">develo</span>
+          <span className="font-heading font-bold text-lg tracking-tight">
+            Pro<span className="text-gradient-brand">develo</span>
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === link.to ? "text-primary" : "text-muted-foreground"
+              className={`text-sm font-medium transition-colors relative ${
+                location.pathname === link.to ? "text-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {link.label}
+              {location.pathname === link.to && (
+                <span className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full" />
+              )}
             </Link>
           ))}
-          <button onClick={scrollToForm} className="cta-button !py-2.5 !px-6 text-sm">
-            Démo Gratuite
+        </div>
+
+        <div className="hidden md:flex items-center gap-3">
+          <CurrencyToggle />
+          <button
+            onClick={scrollToForm}
+            className="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-sm font-semibold px-5 py-2.5 rounded-full shadow-[0_8px_24px_-6px_hsl(320_90%_50%/0.5)] hover:-translate-y-0.5 transition-all"
+          >
+            Démo <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
         {/* Mobile toggle */}
-        <button className="md:hidden p-2" onClick={() => setOpen(!open)}>
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <CurrencyToggle />
+          <button className="p-2" onClick={() => setOpen(!open)}>
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-card border-b border-border px-4 pb-4 space-y-3">
+        <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border px-4 pb-4 space-y-3">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
               onClick={() => setOpen(false)}
               className={`block text-sm font-medium py-2 ${
-                location.pathname === link.to ? "text-primary" : "text-muted-foreground"
+                location.pathname === link.to ? "text-foreground" : "text-muted-foreground"
               }`}
             >
               {link.label}
@@ -75,7 +111,7 @@ const Navbar = () => {
           ))}
           <button
             onClick={() => { setOpen(false); scrollToForm(); }}
-            className="cta-button !py-2.5 !px-6 text-sm w-full"
+            className="cta-button w-full text-sm"
           >
             Démo Gratuite
           </button>

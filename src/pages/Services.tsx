@@ -1,165 +1,109 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Check, ArrowRight, Globe, ShoppingCart, Code2, Layers } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { ArrowRight, Globe, ShoppingCart, Code2, Layers, Search, Wrench, Palette, Smartphone } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
-import DecorativeBlobs from "@/components/DecorativeBlobs";
 
 const services = [
   {
     icon: Globe,
-    title: "Site Vitrine Simple",
-    subtitle: "Pour indépendants et petites entreprises",
-    price: "490 €",
-    delay: "3 à 5 jours",
-    projectType: "Site vitrine",
-    features: [
-      "Design professionnel",
-      "Site responsive (mobile / tablette / ordinateur)",
-      "3 à 5 pages",
-      "Formulaire de contact",
-      "SEO de base",
-      "Google Maps",
-      "Mise en ligne du site",
-    ],
-  },
-  {
-    icon: Layers,
-    title: "Site Vitrine Professionnel",
-    subtitle: "Pour entreprises qui veulent gérer leur site",
-    price: "890 €",
-    delay: "5 à 10 jours",
-    projectType: "Site vitrine professionnel",
-    popular: true,
-    features: [
-      "Design personnalisé",
-      "Site responsive optimisé conversion",
-      "5 à 10 pages",
-      "Espace d'administration (back-office)",
-      "Gestion des pages et contenus",
-      "Gestion des images et médias",
-      "Blog ou actualités",
-      "SEO optimisé",
-      "Formulaires avancés",
-      "Sécurité et performance",
-    ],
+    title: "Sites vitrines",
+    desc: "Présence en ligne moderne, rapide et optimisée pour convertir vos visiteurs en clients.",
   },
   {
     icon: ShoppingCart,
-    title: "Site E-commerce",
-    subtitle: "Pour vendre des produits en ligne",
-    price: "1 490 €",
-    delay: "10 à 20 jours",
-    projectType: "Site e-commerce",
-    features: [
-      "Design e-commerce professionnel",
-      "Catalogue produits",
-      "Gestion des commandes",
-      "Paiement sécurisé (Stripe / PayPal)",
-      "Gestion des stocks",
-      "Dashboard administrateur",
-      "Pages produits optimisées",
-      "SEO e-commerce",
-      "Configuration livraison",
-      "Panier & paiement sécurisé",
-      "Gestion clients & promotions",
-    ],
+    title: "E-commerce",
+    desc: "Boutiques en ligne sécurisées avec gestion produits, commandes et paiements intégrés.",
   },
   {
     icon: Code2,
-    title: "Application Web / Plateforme",
-    subtitle: "Pour startups et projets SaaS",
-    price: "3 900 €",
-    delay: "3 à 6 semaines",
-    projectType: "Application web / SaaS",
-    features: [
-      "Architecture application web",
-      "Design UX/UI professionnel",
-      "Tableaux de bord (Admin, Utilisateurs, Partenaires)",
-      "Authentification utilisateurs",
-      "Gestion abonnements",
-      "Paiement en ligne",
-      "Analytics & Notifications",
-      "API intégrée",
-      "Technologies : React, Node.js, Supabase, Stripe",
-    ],
-    examples: ["SaaS", "Marketplace", "Plateforme éducative", "Plateforme de réservation", "Logiciel web"],
+    title: "Applications web & SaaS",
+    desc: "Plateformes sur-mesure : tableaux de bord, marketplaces, outils métiers et solutions SaaS.",
+  },
+  {
+    icon: Palette,
+    title: "Design UX / UI",
+    desc: "Identités digitales premium et interfaces pensées pour offrir une expérience mémorable.",
+  },
+  {
+    icon: Search,
+    title: "SEO & Performance",
+    desc: "Optimisation technique, contenus et vitesse pour gagner en visibilité sur Google.",
+  },
+  {
+    icon: Smartphone,
+    title: "Responsive & Mobile",
+    desc: "Tous nos projets sont parfaitement adaptés mobile, tablette et desktop.",
+  },
+  {
+    icon: Layers,
+    title: "Back-office & CMS",
+    desc: "Interfaces d'administration intuitives pour gérer votre contenu en toute autonomie.",
+  },
+  {
+    icon: Wrench,
+    title: "Maintenance & Support",
+    desc: "Mises à jour, monitoring, sauvegardes et accompagnement continu après livraison.",
   },
 ];
 
 const Services = () => (
   <div className="min-h-screen bg-background">
     <Navbar />
-    <main className="pt-24 pb-16 px-4 relative overflow-hidden">
-      <DecorativeBlobs variant="services" />
+    <main className="pt-32 pb-20 px-4 relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -z-0" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[120px] -z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <AnimatedSection className="text-center mb-16">
-          <h1 className="font-heading text-4xl md:text-5xl font-bold">
-            Nos <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Services</span>
+        <AnimatedSection className="text-center mb-16 max-w-3xl mx-auto">
+          <span className="badge-premium mb-6">Nos expertises</span>
+          <h1 className="font-heading text-5xl md:text-6xl font-bold leading-tight">
+            Tout ce dont vous avez besoin{" "}
+            <span className="text-gradient-brand">pour briller</span> en ligne
           </h1>
-          <p className="text-muted-foreground mt-4 max-w-xl mx-auto text-lg">
-            Des solutions web adaptées à chaque besoin et chaque budget
+          <p className="text-muted-foreground mt-6 text-lg">
+            De la stratégie au déploiement, nous couvrons l'ensemble des services digitaux
+            pour donner vie à votre projet.
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <AnimatedSection key={s.title} delay={i * 0.1}>
-              <div
-                className="group relative bg-card/80 backdrop-blur-sm rounded-3xl border border-border p-8 flex flex-col transition-all duration-300 hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 overflow-hidden h-full"
-              >
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-
-                {s.popular && (
-                  <Badge className="absolute top-4 right-4 bg-gradient-to-r from-primary to-secondary text-primary-foreground border-0 px-3 py-1 text-xs font-semibold shadow-md">
-                    ⭐ Populaire
-                  </Badge>
-                )}
-
+            <AnimatedSection key={s.title} delay={i * 0.06}>
+              <div className="group relative glass-card rounded-3xl p-7 h-full overflow-hidden hover:-translate-y-1 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
-                    <s.icon className="w-7 h-7 text-primary" />
+                  <div className="feature-icon mb-5 group-hover:scale-110 transition-transform">
+                    <s.icon className="w-6 h-6" />
                   </div>
-
                   <h3 className="font-heading text-xl font-bold">{s.title}</h3>
-                  <p className="text-muted-foreground text-sm mt-1">{s.subtitle}</p>
-
-                  <div className="mt-6 mb-6">
-                    <span className="font-heading text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">À partir de {s.price}</span>
-                    <span className="text-muted-foreground text-sm ml-2">· {s.delay}</span>
-                  </div>
-
-                  {s.examples && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {s.examples.map((ex) => (
-                        <span key={ex} className="text-xs bg-muted px-2.5 py-1 rounded-full text-muted-foreground">{ex}</span>
-                      ))}
-                    </div>
-                  )}
-
-                  <ul className="space-y-2.5 flex-1">
-                    {s.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm">
-                        <Check className="w-4 h-4 text-secondary mt-0.5 shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <a
-                    href={`/#demo-form?type=${encodeURIComponent(s.projectType)}`}
-                    className="mt-8 w-full flex items-center justify-center gap-2 font-semibold text-primary-foreground px-6 py-3.5 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:-translate-y-0.5"
-                  >
-                    Demander une démo gratuite <ArrowRight className="w-4 h-4" />
-                  </a>
+                  <p className="text-muted-foreground text-sm mt-3 leading-relaxed">{s.desc}</p>
                 </div>
               </div>
             </AnimatedSection>
           ))}
         </div>
+
+        <AnimatedSection className="mt-20 text-center" delay={0.2}>
+          <div className="glass-card rounded-3xl p-10 md:p-14 max-w-3xl mx-auto relative overflow-hidden">
+            <div className="absolute -top-32 -right-32 w-72 h-72 bg-primary/30 rounded-full blur-3xl" />
+            <div className="absolute -bottom-32 -left-32 w-72 h-72 bg-secondary/30 rounded-full blur-3xl" />
+            <div className="relative">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold">
+                Un projet en tête ?
+              </h2>
+              <p className="text-muted-foreground mt-4 max-w-md mx-auto">
+                Discutons ensemble de votre vision. Nous vous proposons une démo personnalisée gratuite sous 24h.
+              </p>
+              <a
+                href="/#demo-form"
+                className="mt-8 inline-flex items-center gap-2 bg-gradient-to-r from-primary via-accent to-secondary text-primary-foreground font-semibold px-7 py-4 rounded-full shadow-[0_16px_50px_-12px_hsl(320_90%_50%/0.6)] hover:-translate-y-0.5 transition-all"
+              >
+                Démarrer mon projet <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </AnimatedSection>
       </div>
     </main>
     <Footer />
