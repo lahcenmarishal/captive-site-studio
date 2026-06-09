@@ -10,6 +10,7 @@ import {
   ShoppingCart, UtensilsCrossed, Home, HeartPulse, GraduationCap, Plane,
   Hammer, User, Newspaper, LayoutDashboard, Store, Globe, Sparkles,
 } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { toast } from "sonner";
 
 interface CatalogueItem {
@@ -42,6 +43,7 @@ const CATEGORY_META: Record<string, { icon: React.ComponentType<{ className?: st
 const getMeta = (cat: string) => CATEGORY_META[cat] ?? CATEGORY_META["Autre"];
 
 const Catalogue = () => {
+  const { format } = useCurrency();
   const [selected, setSelected] = useState<CatalogueItem | null>(null);
   const [activeCat, setActiveCat] = useState<string>("Toutes");
   const [form, setForm] = useState<{ nom: string; email: string; telephone: string; message: string; extras: Record<string, string> }>({
@@ -228,7 +230,7 @@ const Catalogue = () => {
                                 <div>
                                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground">À partir de</p>
                                   <p className="font-heading text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                                    {Number(item.price).toLocaleString("fr-FR")} €
+                                    {format(Number(item.price))}
                                   </p>
                                 </div>
                                 {item.demo_url && (

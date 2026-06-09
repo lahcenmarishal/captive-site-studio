@@ -70,7 +70,7 @@ const DemoForm = () => {
       if (typeof window !== "undefined" && (window as any).fbq) {
         (window as any).fbq("track", "Lead", {
           content_category: formData.activite,
-          currency: "EUR",
+          currency: "MAD",
           value: 0,
         });
       }

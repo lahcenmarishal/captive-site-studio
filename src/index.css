@@ -6,53 +6,65 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    /* Premium dark theme — deep midnight + magenta/blue accents */
+    --background: 240 25% 6%;
+    --foreground: 240 15% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card: 240 20% 9%;
+    --card-foreground: 240 15% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover: 240 22% 8%;
+    --popover-foreground: 240 15% 95%;
 
-    --primary: 210 85% 45%;
+    /* Magenta primary */
+    --primary: 320 90% 62%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 165 60% 45%;
+    /* Electric blue secondary */
+    --secondary: 250 95% 70%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 20% 95%;
-    --muted-foreground: 215 15% 50%;
+    --muted: 240 15% 14%;
+    --muted-foreground: 240 10% 65%;
 
-    --accent: 45 95% 55%;
-    --accent-foreground: 215 25% 15%;
+    --accent: 280 90% 65%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214 25% 90%;
-    --input: 214 25% 90%;
-    --ring: 210 85% 45%;
+    --border: 240 20% 18%;
+    --input: 240 20% 14%;
+    --ring: 320 90% 62%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --hero-gradient: linear-gradient(135deg, hsl(210 40% 12%) 0%, hsl(200 50% 18%) 50%, hsl(180 40% 22%) 100%);
-    --cta-gradient: linear-gradient(135deg, hsl(210 85% 45%) 0%, hsl(195 80% 42%) 100%);
-    --badge-gradient: linear-gradient(135deg, hsl(165 60% 45%) 0%, hsl(175 65% 40%) 100%);
-    --section-gradient: linear-gradient(180deg, hsl(200 30% 96%) 0%, hsl(0 0% 100%) 100%);
+    /* Premium gradients */
+    --gradient-brand: linear-gradient(135deg, hsl(320 90% 62%) 0%, hsl(280 85% 60%) 50%, hsl(240 90% 65%) 100%);
+    --gradient-aurora: linear-gradient(135deg, hsl(320 90% 62%) 0%, hsl(280 85% 60%) 40%, hsl(220 95% 65%) 100%);
+    --gradient-hero: radial-gradient(ellipse at 20% 30%, hsl(320 90% 50% / 0.25), transparent 60%),
+                     radial-gradient(ellipse at 80% 70%, hsl(240 90% 55% / 0.3), transparent 60%),
+                     linear-gradient(180deg, hsl(240 30% 5%), hsl(245 30% 8%));
+    --gradient-card: linear-gradient(135deg, hsl(240 25% 11% / 0.8), hsl(240 22% 8% / 0.6));
 
-    --shadow-card: 0 4px 24px -4px hsl(210 40% 12% / 0.08);
-    --shadow-elevated: 0 12px 40px -8px hsl(210 40% 12% / 0.12);
-    --shadow-cta: 0 8px 24px -4px hsl(210 85% 45% / 0.35);
+    --hero-gradient: var(--gradient-hero);
+    --cta-gradient: var(--gradient-brand);
+    --badge-gradient: var(--gradient-aurora);
+    --section-gradient: linear-gradient(180deg, hsl(240 25% 6%), hsl(245 30% 8%));
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --shadow-card: 0 10px 40px -10px hsl(320 90% 30% / 0.15);
+    --shadow-elevated: 0 20px 60px -15px hsl(280 80% 40% / 0.35);
+    --shadow-cta: 0 12px 40px -8px hsl(320 90% 50% / 0.5);
+    --shadow-glow: 0 0 60px hsl(320 90% 60% / 0.4);
+
+    --sidebar-background: 240 25% 6%;
+    --sidebar-foreground: 240 15% 90%;
+    --sidebar-primary: 320 90% 62%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 20% 14%;
+    --sidebar-accent-foreground: 240 15% 95%;
+    --sidebar-border: 240 20% 18%;
+    --sidebar-ring: 320 90% 62%;
   }
 }
 
@@ -61,13 +73,22 @@
     @apply border-border;
   }
 
+  html {
+    color-scheme: dark;
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'DM Sans', sans-serif;
+    background-image:
+      radial-gradient(at 15% 0%, hsl(320 90% 30% / 0.12), transparent 50%),
+      radial-gradient(at 85% 100%, hsl(240 90% 35% / 0.12), transparent 50%);
+    background-attachment: fixed;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -84,21 +105,29 @@
 
   .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px -4px hsl(210 85% 45% / 0.45);
+    box-shadow: 0 16px 50px -8px hsl(320 90% 50% / 0.6);
   }
 
   .badge-premium {
-    background: var(--badge-gradient);
-    @apply text-secondary-foreground text-sm font-medium px-5 py-2 rounded-full inline-flex items-center gap-2;
+    background: linear-gradient(135deg, hsl(240 20% 12% / 0.8), hsl(240 20% 18% / 0.6));
+    border: 1px solid hsl(320 80% 60% / 0.3);
+    backdrop-filter: blur(12px);
+    @apply text-foreground text-sm font-medium px-5 py-2 rounded-full inline-flex items-center gap-2;
+  }
+
+  .glass-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(240 20% 22% / 0.6);
+    backdrop-filter: blur(20px);
   }
 
   .stat-card {
-    @apply bg-card rounded-2xl border border-border px-8 py-6 text-center;
+    @apply glass-card rounded-2xl px-8 py-6 text-center;
     box-shadow: var(--shadow-card);
   }
 
   .form-card {
-    @apply bg-card rounded-2xl border border-border p-8 md:p-10;
+    @apply glass-card rounded-2xl p-8 md:p-10;
     box-shadow: var(--shadow-elevated);
   }
 
@@ -108,12 +137,19 @@
   }
 
   .feature-icon {
-    @apply w-14 h-14 rounded-full flex items-center justify-center;
-    background: hsl(var(--primary) / 0.1);
-    color: hsl(var(--primary));
+    @apply w-14 h-14 rounded-2xl flex items-center justify-center;
+    background: linear-gradient(135deg, hsl(320 90% 62% / 0.2), hsl(240 90% 65% / 0.15));
+    color: hsl(320 90% 80%);
   }
 
   .section-gradient {
     background: var(--section-gradient);
+  }
+
+  .text-gradient-brand {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }
