@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Code2, LogOut, RefreshCw, Eye, Clock, CheckCircle, XCircle, BarChart3, KeyRound, FolderOpen } from "lucide-react";
+import { Code2, LogOut, RefreshCw, Eye, Clock, CheckCircle, XCircle, BarChart3, KeyRound, FolderOpen, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import PipelineBoard from "@/components/admin/PipelineBoard";
 import AdminPortfolio from "@/components/admin/AdminPortfolio";
+import AdminCatalogue from "@/components/admin/AdminCatalogue";
 
 type DemoRequest = {
   id: string;
