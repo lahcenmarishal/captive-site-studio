@@ -14,6 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
+      catalogue_items: {
+        Row: {
+          category: string
+          created_at: string
+          demo_url: string | null
+          description: string
+          display_order: number
+          features: string[]
+          id: string
+          image_url: string | null
+          price: number
+          published: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          demo_url?: string | null
+          description?: string
+          display_order?: number
+          features?: string[]
+          id?: string
+          image_url?: string | null
+          price?: number
+          published?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          demo_url?: string | null
+          description?: string
+          display_order?: number
+          features?: string[]
+          id?: string
+          image_url?: string | null
+          price?: number
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      catalogue_requests: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          item_id: string | null
+          item_title: string
+          message: string | null
+          nom: string
+          status: string
+          telephone: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          item_id?: string | null
+          item_title: string
+          message?: string | null
+          nom: string
+          status?: string
+          telephone: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          item_id?: string | null
+          item_title?: string
+          message?: string | null
+          nom?: string
+          status?: string
+          telephone?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "catalogue_requests_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "catalogue_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demo_requests: {
         Row: {
           activite: string
