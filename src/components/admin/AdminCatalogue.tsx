@@ -32,11 +32,25 @@ type Request = {
   created_at: string;
 };
 
-const CATEGORIES = ["Site vitrine", "Site vitrine professionnel", "Site e-commerce", "Application web", "Plateforme SaaS", "Marketplace", "Blog"];
+const CATEGORIES = [
+  "E-commerce",
+  "Restaurant",
+  "Immobilier",
+  "Santé & Bien-être",
+  "Éducation",
+  "Tourisme & Hôtellerie",
+  "Artisanat & Services locaux",
+  "Portfolio & Personnel",
+  "Blog & Magazine",
+  "Application web / SaaS",
+  "Marketplace",
+  "Site vitrine",
+  "Autre",
+];
 
 const empty: Partial<Item> = {
   title: "",
-  category: "Site vitrine",
+  category: "E-commerce",
   price: 0,
   description: "",
   features: [],
