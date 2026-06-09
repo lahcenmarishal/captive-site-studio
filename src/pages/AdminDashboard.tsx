@@ -203,6 +203,7 @@ const AdminDashboard = () => {
         )}
 
         {activeTab === "portfolio" && <AdminPortfolio />}
+        {activeTab === "catalogue" && <AdminCatalogue />}
       </main>
     </div>
   );
