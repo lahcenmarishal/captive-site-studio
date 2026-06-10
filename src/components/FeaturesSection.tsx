@@ -5,7 +5,7 @@ import DecorativeBlobs from "./DecorativeBlobs";
 const features = [
   { icon: Zap, title: "Ultra Rapide", desc: "Votre démo livrée en 3-5 jours ouvrables. Réponse garantie en 24h.", highlight: "3-5 jours" },
   { icon: Award, title: "Qualité Premium", desc: "Design moderne, responsive et optimisé pour convertir vos visiteurs.", highlight: "100% pro" },
-  { icon: Gift, title: "Démo Gratuite", desc: "Visualisez votre futur site avant de vous engager. Zéro risque.", highlight: "0 €" },
+  { icon: Gift, title: "Démo Personnalisée", desc: "Visualisez votre futur site avant de vous engager. Sur-mesure.", highlight: "Sur-mesure" },
   { icon: Clock, title: "Suivi en Temps Réel", desc: "Restez informé à chaque étape de l'avancement de votre projet.", highlight: "Transparent" },
   { icon: Headphones, title: "Support Dédié", desc: "Un interlocuteur unique pour répondre à toutes vos questions.", highlight: "24/7" },
   { icon: ShieldCheck, title: "Satisfaction Garantie", desc: "Modifications illimitées jusqu'à votre validation finale.", highlight: "Garanti" },

@@ -24,13 +24,13 @@ const Footer = () => {
           <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <h3 className="font-heading font-bold text-lg text-white">Un projet en tête ?</h3>
-              <p className="text-sm text-[hsl(210_20%_65%)]">Recevez une démo gratuite personnalisée en 24h</p>
+              <p className="text-sm text-[hsl(210_20%_65%)]">Recevez une démo personnalisée en 24h</p>
             </div>
             <button
               onClick={scrollToForm}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-[hsl(195_80%_42%)] text-primary-foreground font-semibold px-6 py-3 rounded-xl hover:shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.4)] hover:-translate-y-0.5 transition-all duration-300"
             >
-              Recevoir ma démo gratuite <ArrowRight className="w-4 h-4" />
+              Recevoir ma démo <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -49,7 +49,7 @@ const Footer = () => {
                 </span>
               </div>
               <p className="text-sm leading-relaxed text-[hsl(210_20%_65%)]">
-                Création de sites web professionnels pour entreprises et entrepreneurs. Démo gratuite et livraison rapide.
+                Création de sites web professionnels pour entreprises et entrepreneurs. Démo personnalisée et livraison rapide.
               </p>
               {/* Social icons */}
               <div className="flex items-center gap-3 mt-5">
@@ -105,13 +105,13 @@ const Footer = () => {
             <div>
               <h4 className="font-heading font-bold text-sm text-white mb-4">Démarrer un projet</h4>
               <p className="text-sm text-[hsl(210_20%_65%)] mb-4">
-                Prêt à lancer votre site web ? Commencez par une démo gratuite.
+                Prêt à lancer votre site web ? Commencez par une démo personnalisée.
               </p>
               <button
                 onClick={scrollToForm}
                 className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-primary-foreground bg-primary px-5 py-3 rounded-xl hover:bg-primary/90 transition-colors"
               >
-                Recevoir une démo gratuite <ArrowRight className="w-4 h-4" />
+                Recevoir une démo <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>

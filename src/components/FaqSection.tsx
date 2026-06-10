@@ -19,9 +19,9 @@ const faqItems = [
       "Le délai varie selon la complexité du projet. Un site vitrine est généralement livré en 3 à 5 jours, tandis qu'un projet plus complexe peut prendre 2 à 4 semaines.",
   },
   {
-    question: "La démo est-elle vraiment gratuite ?",
+    question: "Comment se déroule la démo ?",
     answer:
-      "Absolument. Nous créons une maquette fonctionnelle de votre site sans aucun engagement. Vous ne payez que si le résultat vous convient.",
+      "Nous créons une maquette fonctionnelle personnalisée de votre futur site afin que vous puissiez visualiser le rendu avant de vous engager pleinement.",
   },
   {
     question: "Proposez-vous un accompagnement après la livraison ?",
