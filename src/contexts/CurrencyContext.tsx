@@ -19,22 +19,14 @@ const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefine
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const [currency, setCurrencyState] = useState<CurrencyCode>("MAD");
 
-  useEffect(() => {
-    const stored = (typeof window !== "undefined" && localStorage.getItem("currency")) as CurrencyCode | null;
-    if (stored === "MAD" || stored === "EUR") setCurrencyState(stored);
-  }, []);
-
-  const setCurrency = (c: CurrencyCode) => {
-    setCurrencyState(c);
-    try { localStorage.setItem("currency", c); } catch {}
+  const setCurrency = (_c: CurrencyCode) => {
+    // Currency toggle removed — MAD only.
+    setCurrencyState("MAD");
   };
 
   const format = (eurAmount: number) => {
-    if (currency === "MAD") {
-      const mad = Math.round(eurAmount * RATE_EUR_TO_MAD);
-      return `${mad.toLocaleString("fr-FR")} DH`;
-    }
-    return `${eurAmount.toLocaleString("fr-FR")} €`;
+    const mad = Math.round(eurAmount * RATE_EUR_TO_MAD);
+    return `${mad.toLocaleString("fr-FR")} DH`;
   };
 
   return (
