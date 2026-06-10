@@ -90,7 +90,7 @@ const Navbar = () => {
             onClick={() => { setOpen(false); scrollToForm(); }}
             className="cta-button w-full text-sm"
           >
-            Démo Gratuite
+            Recevoir ma démo
           </button>
         </div>
       )}
