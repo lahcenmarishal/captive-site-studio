@@ -24,13 +24,13 @@ const Footer = () => {
           <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <h3 className="font-heading font-bold text-lg text-white">Un projet en tête ?</h3>
-              <p className="text-sm text-[hsl(210_20%_65%)]">Recevez une démo gratuite personnalisée en 24h</p>
+              <p className="text-sm text-[hsl(210_20%_65%)]">Recevez une démo personnalisée en 24h</p>
             </div>
             <button
               onClick={scrollToForm}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-[hsl(195_80%_42%)] text-primary-foreground font-semibold px-6 py-3 rounded-xl hover:shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.4)] hover:-translate-y-0.5 transition-all duration-300"
             >
-              Recevoir ma démo gratuite <ArrowRight className="w-4 h-4" />
+              Recevoir ma démo <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
