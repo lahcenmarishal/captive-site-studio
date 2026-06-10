@@ -96,7 +96,7 @@ const DemoForm = () => {
         <AnimatedSection className="text-center mb-10">
           <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium px-4 py-1.5 rounded-full mb-4">
             <Sparkles className="w-4 h-4" />
-            Gratuit & sans engagement
+            Sur-mesure & sans engagement
           </span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold">
             Recevoir Votre Démo{" "}
@@ -105,7 +105,7 @@ const DemoForm = () => {
             </span>
           </h2>
           <p className="text-muted-foreground mt-3 max-w-md mx-auto">
-            Complétez le formulaire pour recevoir votre démo gratuite
+            Complétez le formulaire pour recevoir votre démo personnalisée
           </p>
         </AnimatedSection>
 
