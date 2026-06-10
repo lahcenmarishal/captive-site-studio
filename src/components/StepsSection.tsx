@@ -1,74 +1,93 @@
-import { ClipboardList, Zap, Monitor, ShieldCheck, Truck, ArrowRight } from "lucide-react";
-import AnimatedSection from "./AnimatedSection";
+import { Compass, Search, Rocket, ShieldCheck } from "lucide-react";
+import { motion } from "framer-motion";
+import SectionLabel from "./SectionLabel";
 
 const steps = [
-  { icon: ClipboardList, title: "Remplissez", subtitle: "le formulaire en 2 min", emoji: "📋" },
-  { icon: Zap, title: "On vous contacte", subtitle: "sous 24h max", emoji: "⚡" },
-  { icon: Monitor, title: "Démo créée", subtitle: "100% personnalisée", emoji: "🎨" },
-  { icon: ShieldCheck, title: "Validation", subtitle: "et acompte 50%", emoji: "✅" },
-  { icon: Truck, title: "Livraison", subtitle: "site prêt à l'emploi", emoji: "🚀" },
+  {
+    n: "01",
+    week: "Sem. 1",
+    icon: Compass,
+    title: "Cadrage",
+    desc: "On comprend votre marque, vos objectifs et votre audience.",
+    items: ["Brief stratégique", "Analyse concurrentielle", "Architecture du site"],
+  },
+  {
+    n: "02",
+    week: "Sem. 2",
+    icon: Search,
+    title: "Design",
+    desc: "Maquettes premium et prototype interactif validés avant code.",
+    items: ["Direction artistique", "Maquettes responsive", "Prototype cliquable"],
+  },
+  {
+    n: "03",
+    week: "Sem. 3",
+    icon: Rocket,
+    title: "Développement",
+    desc: "Code performant, SEO-friendly et 100% sur-mesure.",
+    items: ["Intégration premium", "Optimisation vitesse", "SEO technique"],
+  },
+  {
+    n: "04",
+    week: "Sem. 4",
+    icon: ShieldCheck,
+    title: "Lancement",
+    desc: "Tests, mise en ligne et accompagnement post-livraison.",
+    items: ["QA & tests croisés", "Mise en ligne", "Suivi 30 jours"],
+  },
 ];
 
 const StepsSection = () => (
-  <section className="py-24 px-4 bg-muted/30 relative overflow-hidden">
-    {/* Decorative line */}
-    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+  <section className="py-24 md:py-32 px-4 relative overflow-hidden">
+    <div className="absolute -left-32 top-10 w-72 h-72 rounded-full bg-primary/10 blur-[100px]" />
 
-    <div className="max-w-5xl mx-auto">
-      <AnimatedSection className="text-center mb-16">
-        <h2 className="font-heading text-3xl md:text-4xl font-bold">
-          Comment ça <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">marche</span> ?
-        </h2>
-        <p className="text-muted-foreground mt-3 max-w-lg mx-auto text-lg">
-          De l'idée à la mise en ligne, un processus simple et rapide
-        </p>
-      </AnimatedSection>
-
-      {/* Desktop: horizontal timeline */}
-      <div className="hidden md:flex items-start justify-between gap-2">
-        {steps.map((step, i) => (
-          <AnimatedSection key={step.title} delay={i * 0.1} className="flex items-start flex-1">
-            <div className="flex flex-col items-center text-center flex-1">
-              <div className="relative group">
-                <div className="w-20 h-20 rounded-3xl bg-card border-2 border-border flex items-center justify-center text-4xl shadow-[var(--shadow-card)] group-hover:shadow-[var(--shadow-elevated)] group-hover:-translate-y-2 group-hover:border-primary/30 transition-all duration-300 cursor-default">
-                  {step.emoji}
-                </div>
-                <div className="absolute -top-1.5 -left-1.5 w-7 h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shadow-lg">
-                  {i + 1}
-                </div>
-              </div>
-              <h3 className="font-heading font-bold text-base mt-4">{step.title}</h3>
-              <p className="text-muted-foreground text-sm mt-1 max-w-[140px]">{step.subtitle}</p>
-            </div>
-            {i < steps.length - 1 && (
-              <div className="flex items-center pt-9 px-1 text-muted-foreground/30">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-border to-primary/20" />
-                <ArrowRight className="w-4 h-4 -ml-1" />
-              </div>
-            )}
-          </AnimatedSection>
-        ))}
+    <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-3xl mb-16">
+        <SectionLabel number="05" label="Notre processus" />
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6 }}
+          className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mt-6 leading-[1.05] tracking-tight"
+        >
+          Une méthode <span className="text-gradient-brand">en 4 étapes</span> claires.
+        </motion.h2>
       </div>
 
-      {/* Mobile: vertical cards */}
-      <div className="md:hidden space-y-4">
-        {steps.map((step, i) => (
-          <AnimatedSection key={step.title} delay={i * 0.08}>
-            <div className="flex items-center gap-4 bg-card rounded-2xl border border-border p-5 shadow-[var(--shadow-card)]">
-              <div className="relative shrink-0">
-                <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center text-2xl">
-                  {step.emoji}
-                </div>
-                <div className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold">
-                  {i + 1}
-                </div>
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-sm">{step.title}</h3>
-                <p className="text-muted-foreground text-xs mt-0.5">{step.subtitle}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {steps.map((s, i) => (
+          <motion.div
+            key={s.n}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, delay: i * 0.1 }}
+            className="glass-card rounded-3xl p-6 hover:-translate-y-1 hover:border-primary/40 transition-all duration-500"
+          >
+            <div className="flex items-center justify-between">
+              <span className="px-3 py-1 rounded-full bg-background/60 border border-border text-xs font-heading font-semibold">
+                Étape : {s.n}
+              </span>
+              <div className="w-11 h-11 rounded-full bg-muted flex items-center justify-center">
+                <s.icon className="w-5 h-5 text-secondary" />
               </div>
             </div>
-          </AnimatedSection>
+            <div className="mt-5 text-xs text-secondary font-medium">{s.week}</div>
+            <h3 className="font-heading font-bold text-2xl mt-1">{s.title}</h3>
+            <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{s.desc}</p>
+            <div className="my-5 h-px bg-border" />
+            <ul className="space-y-2">
+              {s.items.map((item, j) => (
+                <li key={j} className="flex items-center gap-2 text-sm">
+                  <span className="font-heading text-muted-foreground/60 w-5">
+                    {String(i * 3 + j + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-foreground/90">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         ))}
       </div>
     </div>

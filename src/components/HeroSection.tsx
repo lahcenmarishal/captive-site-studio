@@ -2,6 +2,8 @@ import { ArrowRight, Sparkles, Star } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
+import BrandMarquee from "./BrandMarquee";
+
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -16,7 +18,9 @@ const HeroSection = () => {
   };
 
   return (
+    <>
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden pt-24 pb-20 px-4">
+
       {/* Background image */}
       <div
         className="absolute inset-0 opacity-40"
@@ -119,7 +123,11 @@ const HeroSection = () => {
         </motion.div>
       </div>
     </section>
+
+    <BrandMarquee />
+    </>
   );
 };
 
 export default HeroSection;
+
