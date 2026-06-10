@@ -10,27 +10,7 @@ const navLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
-const CurrencyToggle = () => {
-  const { currency, setCurrency } = useCurrency();
-  return (
-    <div className="inline-flex items-center rounded-full border border-border bg-card/60 backdrop-blur-md p-0.5 text-xs font-semibold">
-      {(["MAD", "EUR"] as const).map((c) => (
-        <button
-          key={c}
-          onClick={() => setCurrency(c)}
-          className={`px-3 py-1 rounded-full transition-all ${
-            currency === c
-              ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-[0_4px_12px_-2px_hsl(320_90%_50%/0.5)]"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-          aria-label={`Afficher en ${c === "MAD" ? "DH" : "Euro"}`}
-        >
-          {c === "MAD" ? "DH" : "€"}
-        </button>
-      ))}
-    </div>
-  );
-};
+
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
