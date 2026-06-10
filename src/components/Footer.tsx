@@ -49,7 +49,7 @@ const Footer = () => {
                 </span>
               </div>
               <p className="text-sm leading-relaxed text-[hsl(210_20%_65%)]">
-                Création de sites web professionnels pour entreprises et entrepreneurs. Démo gratuite et livraison rapide.
+                Création de sites web professionnels pour entreprises et entrepreneurs. Démo personnalisée et livraison rapide.
               </p>
               {/* Social icons */}
               <div className="flex items-center gap-3 mt-5">
