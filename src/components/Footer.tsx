@@ -105,13 +105,13 @@ const Footer = () => {
             <div>
               <h4 className="font-heading font-bold text-sm text-white mb-4">Démarrer un projet</h4>
               <p className="text-sm text-[hsl(210_20%_65%)] mb-4">
-                Prêt à lancer votre site web ? Commencez par une démo gratuite.
+                Prêt à lancer votre site web ? Commencez par une démo personnalisée.
               </p>
               <button
                 onClick={scrollToForm}
                 className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-primary-foreground bg-primary px-5 py-3 rounded-xl hover:bg-primary/90 transition-colors"
               >
-                Recevoir une démo gratuite <ArrowRight className="w-4 h-4" />
+                Recevoir une démo <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
