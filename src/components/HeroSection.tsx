@@ -88,14 +88,14 @@ const HeroSection = () => {
             onClick={scrollToForm}
             className="group inline-flex items-center gap-2 bg-gradient-to-r from-primary via-accent to-secondary text-primary-foreground font-semibold px-7 py-4 rounded-full text-base shadow-[0_16px_50px_-12px_hsl(320_90%_50%/0.6)] hover:-translate-y-1 transition-all duration-300"
           >
-            Recevoir ma démo gratuite
+            Recevoir ma démo
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
           <a
-            href="/portfolio"
+            href="/catalogue"
             className="inline-flex items-center gap-2 bg-card/60 backdrop-blur-md border border-border text-foreground font-semibold px-7 py-4 rounded-full text-base hover:bg-card transition-all duration-300"
           >
-            Voir nos projets
+            Voir le catalogue
           </a>
         </motion.div>
 
