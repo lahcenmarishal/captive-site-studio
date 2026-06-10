@@ -121,7 +121,11 @@ const HeroSection = () => {
         </motion.div>
       </div>
     </section>
+
+    <BrandMarquee />
+    </>
   );
 };
 
 export default HeroSection;
+
