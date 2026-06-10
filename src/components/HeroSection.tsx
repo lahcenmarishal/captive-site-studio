@@ -2,6 +2,8 @@ import { ArrowRight, Sparkles, Star } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
+import BrandMarquee from "./BrandMarquee";
+
 
 const HeroSection = () => {
   const navigate = useNavigate();
