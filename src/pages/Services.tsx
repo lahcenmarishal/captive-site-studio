@@ -93,7 +93,7 @@ const Services = () => (
                 Un projet en tête ?
               </h2>
               <p className="text-muted-foreground mt-4 max-w-md mx-auto">
-                Discutons ensemble de votre vision. Nous vous proposons une démo personnalisée gratuite sous 24h.
+                Discutons ensemble de votre vision. Nous vous proposons une démo personnalisée sous 24h.
               </p>
               <a
                 href="/#demo-form"
