@@ -55,7 +55,6 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <CurrencyToggle />
           <button
             onClick={scrollToForm}
             className="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary to-secondary text-primary-foreground text-sm font-semibold px-5 py-2.5 rounded-full shadow-[0_8px_24px_-6px_hsl(320_90%_50%/0.5)] hover:-translate-y-0.5 transition-all"
@@ -66,7 +65,6 @@ const Navbar = () => {
 
         {/* Mobile toggle */}
         <div className="md:hidden flex items-center gap-2">
-          <CurrencyToggle />
           <button className="p-2" onClick={() => setOpen(!open)}>
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
