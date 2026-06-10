@@ -1,7 +1,6 @@
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, Code2 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 const navLinks = [
   { to: "/", label: "Accueil" },
