@@ -153,12 +153,12 @@ const DemoForm = () => {
                 disabled={loading}
                 className="group w-full flex items-center justify-center gap-2 text-lg font-semibold text-primary-foreground px-8 py-4 rounded-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-[0_8px_24px_-4px_hsl(210_85%_45%/0.35)] hover:shadow-[0_12px_32px_-4px_hsl(210_85%_45%/0.45)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {loading ? <><Loader2 className="w-5 h-5 animate-spin" /> Envoi en cours...</> : <>Recevoir ma démo gratuite <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>}
+                {loading ? <><Loader2 className="w-5 h-5 animate-spin" /> Envoi en cours...</> : <>Recevoir ma démo personnalisée <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>}
               </button>
 
               <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground text-center">
                 <Lock className="w-4 h-4" />
-                Réponse sous 24h – Démo gratuite sans engagement.
+                Réponse sous 24h – Sans engagement.
               </p>
             </form>
           </div>
