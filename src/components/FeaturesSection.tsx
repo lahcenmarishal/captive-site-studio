@@ -1,51 +1,80 @@
-import { Zap, Award, Gift, Clock, Headphones, ShieldCheck } from "lucide-react";
-import AnimatedSection from "./AnimatedSection";
-import DecorativeBlobs from "./DecorativeBlobs";
+import { FileCheck2, Sparkles, Users, MessageCircle, Wallet, Headset } from "lucide-react";
+import { motion } from "framer-motion";
+import SectionLabel from "./SectionLabel";
 
 const features = [
-  { icon: Zap, title: "Ultra Rapide", desc: "Votre démo livrée en 3-5 jours ouvrables. Réponse garantie en 24h.", highlight: "3-5 jours" },
-  { icon: Award, title: "Qualité Premium", desc: "Design moderne, responsive et optimisé pour convertir vos visiteurs.", highlight: "100% pro" },
-  { icon: Gift, title: "Démo Personnalisée", desc: "Visualisez votre futur site avant de vous engager. Sur-mesure.", highlight: "Sur-mesure" },
-  { icon: Clock, title: "Suivi en Temps Réel", desc: "Restez informé à chaque étape de l'avancement de votre projet.", highlight: "Transparent" },
-  { icon: Headphones, title: "Support Dédié", desc: "Un interlocuteur unique pour répondre à toutes vos questions.", highlight: "24/7" },
-  { icon: ShieldCheck, title: "Satisfaction Garantie", desc: "Modifications illimitées jusqu'à votre validation finale.", highlight: "Garanti" },
+  {
+    icon: FileCheck2,
+    title: "Approche orientée résultats",
+    desc: "On construit pour convertir, pas seulement pour faire joli. Chaque décision sert vos KPIs.",
+  },
+  {
+    icon: Sparkles,
+    title: "Sur-mesure premium",
+    desc: "Un design pensé pour votre marque. Aucun template, aucune solution générique.",
+  },
+  {
+    icon: Users,
+    title: "Expérience utilisateur",
+    desc: "Interfaces intuitives, rapides et accessibles sur tous les écrans.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Communication transparente",
+    desc: "Un interlocuteur unique, des points réguliers, vous restez maître du projet.",
+  },
+  {
+    icon: Wallet,
+    title: "Investissement maîtrisé",
+    desc: "Devis clairs, paliers de paiement et zéro frais cachés. Vous savez où va chaque dirham.",
+  },
+  {
+    icon: Headset,
+    title: "Support après livraison",
+    desc: "On reste à vos côtés : maintenance, évolutions et formation à votre équipe.",
+  },
 ];
 
 const FeaturesSection = () => (
-  <section className="py-24 px-4 relative overflow-hidden">
-    <DecorativeBlobs variant="section" />
-    <div className="max-w-5xl mx-auto relative z-10">
-      <AnimatedSection className="text-center mb-14">
-        <h2 className="font-heading text-3xl md:text-4xl font-bold">
-          Pourquoi nous <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">choisir</span> ?
-        </h2>
-        <p className="text-muted-foreground mt-3 max-w-lg mx-auto text-lg">
-          Tout ce qu'il faut pour lancer votre présence en ligne
-        </p>
-      </AnimatedSection>
+  <section className="py-24 md:py-32 px-4 relative overflow-hidden">
+    <div className="absolute right-0 top-1/2 w-96 h-96 rounded-full bg-secondary/10 blur-[120px]" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="max-w-6xl mx-auto relative z-10">
+      <div className="text-center max-w-3xl mx-auto mb-16">
+        <SectionLabel number="03" label="Pourquoi nous choisir" align="center" />
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6 }}
+          className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mt-6 leading-[1.05] tracking-tight"
+        >
+          On combine stratégie créative et exécution rigoureuse.
+        </motion.h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {features.map((f, i) => (
-          <AnimatedSection key={f.title} delay={i * 0.08}>
-            <div className="group relative bg-card/80 backdrop-blur-sm rounded-2xl border border-border p-7 hover:shadow-[var(--shadow-elevated)] hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-              {/* Subtle gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-              <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-300">
-                  <f.icon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-heading font-bold text-base">{f.title}</h3>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">
-                      {f.highlight}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground text-sm mt-2 leading-relaxed">{f.desc}</p>
-                </div>
+          <motion.div
+            key={f.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
+            className="group relative glass-card rounded-3xl p-7 overflow-hidden hover:border-primary/40 transition-all duration-500"
+          >
+            {/* Big faded number */}
+            <span className="absolute -top-2 right-5 font-heading font-bold text-7xl text-muted-foreground/10 group-hover:text-primary/20 transition-colors duration-500 select-none">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div className="relative">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center mb-5">
+                <f.icon className="w-5 h-5 text-secondary" />
               </div>
+              <h3 className="font-heading font-bold text-xl mb-2">{f.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
             </div>
-          </AnimatedSection>
+          </motion.div>
         ))}
       </div>
     </div>
