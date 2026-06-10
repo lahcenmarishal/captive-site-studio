@@ -27,12 +27,12 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-xl border-b border-border/60">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center shadow-[0_8px_24px_-6px_hsl(320_90%_50%/0.6)] group-hover:scale-105 transition-transform">
-            <span className="text-primary-foreground font-heading font-bold text-base">P</span>
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+            <Code2 className="w-5 h-5 text-primary-foreground" />
           </div>
           <span className="font-heading font-bold text-lg tracking-tight">
-            Pro<span className="text-gradient-brand">develo</span>
+            Pro<span className="text-secondary">develo</span>
           </span>
         </Link>
 
